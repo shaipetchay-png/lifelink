@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Donor Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/donor-pages.css?v=20260917a">
+    <link rel="stylesheet" href="/css/donor-information.css?v=20260917c">
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+<body>
+<header class="top-navbar">
+    <a href="/dashboard" class="top-brand"><img src="/images/logo.jpg" alt="LifeLink Logo"><span>LifeLink</span></a>
+    <button type="button" class="mobile-menu" id="mobileMenu">☰</button>
+    <div class="top-actions">
+        <button type="button" class="notification-button" id="notificationButton" aria-label="Notifications">🔔</button>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span></span></button>
+    </div>
+</header>
+<aside class="sidebar" id="sidebar">
+    <div class="donor-profile"><div class="donor-avatar"><span>👤</span></div><div><h3 th:text="${loggedInUser.firstName}">Donor</h3><p>Welcome back!</p></div></div>
+    <nav class="sidebar-menu">
+        <a href="/dashboard" class="sidebar-item"><span class="menu-icon">🏠</span><span>Dashboard</span></a>
+        <a href="/donor-information" class="sidebar-item active"><span class="menu-icon">≡</span><span>Donor Information</span></a>
+        <a href="/eligibility" class="sidebar-item"><span class="menu-icon">📊</span><span>Eligibility / Status</span></a>
+        <a href="/schedule-donation" class="sidebar-item"><span class="menu-icon">📅</span><span>Schedule Donation</span></a>
+        <a href="/donation-history" class="sidebar-item"><span class="menu-icon">📜</span><span>Donation History</span></a>
+        <a href="/appointment" class="sidebar-item"><span class="menu-icon">☎</span><span>Upcoming Appointment</span></a>
+        <a href="/blood-requests" class="sidebar-item"><span class="menu-icon">🩸</span><span>Blood Requests</span></a>
+        <a href="/profile" class="sidebar-item"><span class="menu-icon">◉</span><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom"><button type="button" class="logout-button" id="logoutButton"><span>↪</span><span>Logout</span></button></div>
+</aside>
+<main class="main-content info-main">
+<section class="info-page">
+    <div class="info-page-header"><div><p class="info-breadcrumb">Dashboard / Donor Information</p><h1>Donor Information</h1><p>View and manage your personal donor information.</p></div><a href="/profile" class="info-profile-button">View Profile</a></div>
+    <div class="donor-overview"><div class="large-avatar">👤</div><div class="overview-info"><h2 th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Donor</h2><p>Registered LifeLink Donor</p><span class="status-badge">● Active Donor</span></div><a href="/profile" class="edit-profile">Edit Profile</a></div>
+    <div class="information-grid">
+      <section class="information-card"><div class="card-title"><div class="title-icon">👤</div><div><h2>Personal Information</h2><p>Your registered personal details</p></div></div><div class="details-grid">
+        <div class="detail-item"><label>Full Name</label><strong th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Juan Cruz</strong></div>
+        <div class="detail-item"><label>Date of Birth</label><strong th:text="${loggedInUser.birthdate != null ? loggedInUser.birthdate : '—'}">2003-01-15</strong></div>
+        <div class="detail-item"><label>Gender</label><strong th:text="${loggedInUser.gender != null && !loggedInUser.gender.isBlank() ? loggedInUser.gender : '—'}">Male</strong></div>
+        <div class="detail-item"><label>Contact Number</label><strong th:text="${loggedInUser.contact != null && !loggedInUser.contact.isBlank() ? loggedInUser.contact : '—'}">09XX XXX XXXX</strong></div>
+        <div class="detail-item full"><label>Email Address</label><strong th:text="${loggedInUser.email}">donor@example.com</strong></div>
+        <div class="detail-item full"><label>Address</label><strong th:text="${loggedInUser.address != null && !loggedInUser.address.isBlank() ? loggedInUser.address : '—'}">Bulacan, Philippines</strong></div>
+      </div></section>
+      <section class="information-card"><div class="card-title"><div class="title-icon blood">🩸</div><div><h2>Blood Information</h2><p>Your blood donation details</p></div></div>
+        <div class="blood-type-display"><div class="blood-circle" th:text="${loggedInUser.bloodType != null && !loggedInUser.bloodType.isBlank() ? loggedInUser.bloodType : 'N/A'}">O+</div><div><span>Blood Type</span><h2 th:text="${loggedInUser.bloodType != null && !loggedInUser.bloodType.isBlank() ? loggedInUser.bloodType : 'Not specified'}">O+</h2><p>Registered blood type</p></div></div>
+        <div class="blood-details"><div><span>Donor Status</span><strong class="active-text">Active</strong></div><div><span>Total Donations</span><strong th:text="${totalDonations}">0</strong></div><div><span>Last Donation</span><strong th:text="${lastDonation != null ? lastDonation : 'No donation recorded'}">No donation recorded</strong></div></div>
+      </section>
+    </div>
+    <section class="information-card status-card"><div class="card-title"><div class="title-icon">✓</div><div><h2>Donor Status</h2><p>Current donation status</p></div></div><div class="status-content"><div class="status-box eligible"><div class="status-symbol">✓</div><div><h3>Eligible to Donate</h3><p>Your donor status is currently active and you may schedule a donation.</p></div></div><a href="/schedule-donation" class="schedule-button">Schedule a Donation →</a></div></section>
+    <div class="quick-links"><a href="/eligibility" class="quick-link"><span>✓</span><div><strong>Check Eligibility</strong><small>View your donation eligibility</small></div><b>›</b></a><a href="/donation-history" class="quick-link"><span>▤</span><div><strong>Donation History</strong><small>View your previous donations</small></div><b>›</b></a><a href="/schedule-donation" class="quick-link"><span>▣</span><div><strong>Schedule Donation</strong><small>Book your next donation</small></div><b>›</b></a></div>
+</section></main>
+<script src="/js/donor-pages.js?v=1"></script>
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+</html>

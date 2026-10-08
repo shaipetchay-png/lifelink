@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>LifeLink | Add Donor</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"><link rel="stylesheet" href="/css/admin-pages.css?v=20260917b">    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head><body>
+<header class="top-navbar"><a href="/admin-dashboard" class="top-brand"><img src="/images/logo.jpg" alt="LifeLink"><span>LifeLink</span></a><button class="mobile-menu" id="mobileMenu">☰</button><div class="top-actions"><div class="admin-top-profile"><div class="admin-top-avatar"><i class="fa-solid fa-user-shield"></i></div><div><strong>Admin Profile</strong><span>Administrator</span></div></div><div class="profile-divider"></div><button class="theme-toggle" id="themeToggle"><span></span></button></div></header>
+<aside class="sidebar" id="sidebar"><div class="admin-profile-side"><div class="admin-avatar-side"><i class="fa-solid fa-user-shield"></i></div><div><h3>Admin Profile</h3><p>Administrator</p></div></div><nav class="sidebar-menu"><a href="/admin-dashboard" class="sidebar-item"><span class="menu-icon">⌂</span><span>Dashboard</span></a><a href="/admin/donors" class="sidebar-item active"><span class="menu-icon">♟</span><span>Donor Management</span></a><a href="/admin/eligibility" class="sidebar-item"><span class="menu-icon">✓</span><span>Eligibility Review</span></a><a href="/admin/appointments" class="sidebar-item"><span class="menu-icon">▣</span><span>Appointment Management</span></a><a href="/admin/donations" class="sidebar-item"><span class="menu-icon">♦</span><span>Donation Management</span></a><a href="/admin/inventory" class="sidebar-item"><span class="menu-icon">▤</span><span>Blood Inventory</span></a><a href="/admin/blood-requests" class="sidebar-item"><span class="menu-icon">♢</span><span>Blood Requests</span></a><a href="/admin/reports" class="sidebar-item"><span class="menu-icon">▥</span><span>Reports</span></a></nav><div class="sidebar-bottom"><button class="logout-button" id="logoutButton"><span class="menu-icon">↪</span><span>Logout</span></button></div></aside>
+<main class="main-content"><div class="page-shell"><div class="page-heading"><div><span class="eyebrow">ADMINISTRATION / DONOR MANAGEMENT</span><h1>Add Donor</h1><p>Create a new donor account and securely save the information to the LifeLink database.</p></div><a href="/admin/donors" class="secondary-button"><i class="fa-solid fa-arrow-left"></i> Donor Management</a></div><div th:if="${error}" class="alert error" th:text="${error}"></div>
+<form class="donor-form" th:action="@{/admin/donors/add}" th:object="${donor}" method="post">
+        <section class="card">
+            <div class="section-heading"><span class="section-number">01</span><div><h2>Personal Information</h2><p>Basic donor details</p></div></div>
+
+            <div class="form-grid">
+                <label>First Name *<input type="text" th:field="*{firstName}" required></label>
+                <label>Middle Name<input type="text" th:field="*{middleName}"></label>
+                <label>Last Name *<input type="text" th:field="*{lastName}" required></label>
+                <label>Birthdate<input type="date" th:field="*{birthdate}"></label>
+                <label>Gender
+                    <select th:field="*{gender}">
+                        <option value="">Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <label>Blood Type
+                    <select th:field="*{bloodType}">
+                        <option value="">Select blood type</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-heading"><span class="section-number">02</span><div><h2>Contact Information</h2><p>How the donor can be reached</p></div></div>
+            <div class="form-grid">
+                <label>Email Address *<input type="email" th:field="*{email}" required></label>
+                <label>Contact Number<input type="text" th:field="*{contact}" placeholder="09XXXXXXXXX"></label>
+                <label class="full">Address<textarea th:field="*{address}" rows="3" placeholder="Complete address"></textarea></label>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-heading"><span class="section-number">03</span><div><h2>Account Information</h2><p>Login credentials for the donor</p></div></div>
+            <div class="form-grid">
+                <label>Username *<input type="text" th:field="*{username}" required></label>
+                <label>Password *<input type="password" th:field="*{password}" required></label>
+                <label>Confirm Password *<input type="password" name="confirmPassword" required></label>
+            </div>
+        </section>
+
+        <div class="form-actions">
+            <a href="/admin/donors" class="secondary-button">Cancel</a>
+            <button type="submit" class="primary-button">Save Donor</button>
+        </div>
+    </form></div></main><script src="/js/admin-pages.js?v=1"></script><script src="/js/theme-toggle.js?v=20260918"></script>
+</body></html>

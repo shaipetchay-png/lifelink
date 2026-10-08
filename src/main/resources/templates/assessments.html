@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LifeLink | Health Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/assessments.css">
+</head>
+<body>
+<header class="topbar"><a href="/dashboard" class="brand"><img src="/images/logo.jpg" alt="LifeLink"><div><strong>Life<span>Link</span></strong><small>BLOOD DONATION SYSTEM</small></div></a><a href="/dashboard" class="back-link">← Dashboard</a></header>
+<main class="page">
+<div class="heading"><div><span class="eyebrow">DONOR / HEALTH ASSESSMENT</span><h1>LifeLink Blood Donation Eligibility Assessment</h1><p>Please answer the following questions honestly and carefully. This assessment provides a preliminary indication only and does not replace final medical screening by authorized healthcare personnel.</p></div><div class="score-preview" th:if="${assessment != null}"><span>Blood Readiness Score</span><strong th:text="${assessment.bloodReadinessScore + '%'}">0%</strong></div></div>
+<div th:if="${param.saved}" class="alert success">Assessment saved successfully. Your eligibility status has been updated.</div>
+<div th:if="${error}" class="alert error" th:text="${error}"></div>
+<section class="status-card" th:if="${assessment != null}"><div><span class="status-label">Current Status</span><h2 th:text="${assessment.result == 'ELIGIBLE' ? 'Eligible' : assessment.result == 'NOT_ELIGIBLE' ? 'Not Currently Eligible' : 'Further Screening Required'}" th:classappend="${assessment.result == 'ELIGIBLE' ? 'eligible' : assessment.result == 'NOT_ELIGIBLE' ? 'not-eligible' : 'in-process'}">Status</h2><p th:text="${#temporals.format(assessment.assessedAt,'MMMM d, yyyy h:mm a')}">Assessment date</p></div><a href="#assessment-form">Retake Assessment →</a></section>
+<form id="assessment-form" class="assessment-card" action="/eligibility/submit" method="post" novalidate>
+<div class="section-title"><span>01</span><div><h2>Basic Eligibility</h2><p>Questions 1–4</p></div></div>
+<div class="field-grid"><label>Weight (kg)<input id="weightKg" name="weightKg" type="number" min="30" max="300" step="0.1" placeholder="Enter your weight" required></label><label>Registered Age<input type="text" th:value="${loggedInUser.age != null ? loggedInUser.age + ' years old' : 'Not set'}" readonly></label></div>
+<div class="question"><div><strong>1. Are you currently feeling well and healthy?</strong></div><div class="choices"><label><input type="radio" name="feelingWell" value="true" required> Yes</label><label><input type="radio" name="feelingWell" value="false"> No</label></div></div>
+<div class="question"><div><strong>2. Do you meet the minimum age requirement for blood donation?</strong></div><div class="choices"><label><input type="radio" name="meetsAgeRequirement" value="true" required> Yes</label><label><input type="radio" name="meetsAgeRequirement" value="false"> No</label></div></div>
+<div class="question"><div><strong>3. Do you meet the minimum weight requirement for blood donation?</strong></div><div class="choices"><label><input type="radio" name="meetsWeightRequirement" value="true" required> Yes</label><label><input type="radio" name="meetsWeightRequirement" value="false"> No</label></div></div>
+<div class="question"><div><strong>4. Have you completed the required waiting period since your last blood donation?</strong></div><div class="choices"><label><input type="radio" name="waitingPeriodComplete" value="true" required> Yes</label><label><input type="radio" name="waitingPeriodComplete" value="false"> No</label><label><input type="radio" name="waitingPeriodComplete" value="true"> I have never donated blood</label></div></div>
+<div class="section-title"><span>02</span><div><h2>Previous Blood Donation</h2><p>Questions 5–6</p></div></div>
+<div class="question"><div><strong>5. Have you donated blood before?</strong></div><div class="choices"><label><input type="radio" name="previousDonation" value="YES" required> Yes</label><label><input type="radio" name="previousDonation" value="NO"> No</label></div></div>
+<div class="question"><div><strong>6. When was your most recent blood donation?</strong><small>Select a date if you answered Yes to question 5.</small></div><div class="choices date-choice"><input id="lastDonationDate" name="lastDonationDate" type="date"></div></div>
+<div class="section-title"><span>03</span><div><h2>Health and Medical History</h2><p>Questions 7–12</p></div></div>
+<div class="question"><div><strong>7. Do you currently have a fever, flu, cough, infection, or any other illness?</strong></div><div class="choices"><label><input type="radio" name="feverOrIllness" value="true" required> Yes</label><label><input type="radio" name="feverOrIllness" value="false"> No</label></div></div>
+<div class="question"><div><strong>8. Are you currently taking any medication?</strong></div><div class="choices"><label><input type="radio" name="takingMedication" value="true" required> Yes</label><label><input type="radio" name="takingMedication" value="false"> No</label></div></div>
+<div class="question"><div><strong>9. Have you recently undergone surgery, been hospitalized, or had a medical procedure?</strong></div><div class="choices"><label><input type="radio" name="recentSurgery" value="true" required> Yes</label><label><input type="radio" name="recentSurgery" value="false"> No</label></div></div>
+<div class="question"><div><strong>10. Have you recently received a tattoo, piercing, or similar procedure?</strong></div><div class="choices"><label><input type="radio" name="tattooOrPiercingRecently" value="true" required> Yes</label><label><input type="radio" name="tattooOrPiercingRecently" value="false"> No</label></div></div>
+<div class="question"><div><strong>11. Do you have any medical condition that may affect your ability to donate blood?</strong></div><div class="choices"><label><input type="radio" name="medicalCondition" value="true" required> Yes</label><label><input type="radio" name="medicalCondition" value="false"> No</label></div></div>
+<div class="question"><div><strong>12. Have you ever been advised by a healthcare professional not to donate blood?</strong></div><div class="choices"><label><input type="radio" name="advisedNotToDonate" value="true" required> Yes</label><label><input type="radio" name="advisedNotToDonate" value="false"> No</label></div></div>
+<div class="section-title"><span>04</span><div><h2>Recent Medical and Travel History</h2><p>Questions 13–16</p></div></div>
+<div class="question"><div><strong>13. Have you recently received a vaccination?</strong></div><div class="choices"><label><input type="radio" name="recentVaccination" value="true" required> Yes</label><label><input type="radio" name="recentVaccination" value="false"> No</label></div></div>
+<div class="question"><div><strong>14. Have you recently undergone a dental procedure?</strong></div><div class="choices"><label><input type="radio" name="recentDentalProcedure" value="true" required> Yes</label><label><input type="radio" name="recentDentalProcedure" value="false"> No</label></div></div>
+<div class="question"><div><strong>15. Have you recently traveled to or stayed in an area where certain infectious diseases may be present?</strong></div><div class="choices"><label><input type="radio" name="recentTravel" value="true" required> Yes</label><label><input type="radio" name="recentTravel" value="false"> No</label></div></div>
+<div class="question"><div><strong>16. Have you ever received a blood transfusion or undergone an organ or tissue transplant?</strong></div><div class="choices"><label><input type="radio" name="transfusionOrTransplant" value="true" required> Yes</label><label><input type="radio" name="transfusionOrTransplant" value="false"> No</label></div></div>
+<div class="section-title"><span>05</span><div><h2>Additional Considerations</h2><p>Question 17</p></div></div>
+<div class="question"><div><strong>17. Are you currently pregnant or have you recently given birth?</strong></div><div class="choices"><label><input type="radio" name="pregnancyStatus" value="YES" required> Yes</label><label><input type="radio" name="pregnancyStatus" value="NO"> No</label><label><input type="radio" name="pregnancyStatus" value="NA"> Not Applicable</label></div></div>
+<div class="rule-note"><strong>Assessment notice:</strong> A basic requirement failure is classified as <b>Not Currently Eligible</b>. Answers that require additional assessment are classified as <b>Further Screening Required</b>. If no preliminary issue is identified, the donor is classified as <b>You May Be Eligible to Donate</b>. The Blood Readiness Score is an educational/demo score because the provided questionnaire does not define a scoring formula.</div>
+<div class="form-footer"><span>All questions are required.</span><button type="submit">Submit Health Assessment</button></div>
+</form>
+</main>
+<script>
+const form=document.getElementById('assessment-form');
+const date=document.getElementById('lastDonationDate');
+const yesPrevious=()=>document.querySelector('input[name="previousDonation"]:checked')?.value==='YES';
+function syncDate(){date.required=yesPrevious(); date.closest('.choices').classList.toggle('required-date',yesPrevious());}
+document.querySelectorAll('input[name="previousDonation"]').forEach(x=>x.addEventListener('change',syncDate)); syncDate();
+form.addEventListener('submit',function(e){
+ const weight=document.getElementById('weightKg');
+ if(!weight.value||Number(weight.value)<30||Number(weight.value)>300){e.preventDefault();alert('Please enter a valid weight between 30 and 300 kg.');weight.focus();return;}
+ const names=['feelingWell','meetsAgeRequirement','meetsWeightRequirement','waitingPeriodComplete','previousDonation','feverOrIllness','takingMedication','recentSurgery','tattooOrPiercingRecently','medicalCondition','advisedNotToDonate','recentVaccination','recentDentalProcedure','recentTravel','transfusionOrTransplant','pregnancyStatus'];
+ if(names.some(n=>!document.querySelector('input[name="'+n+'"]:checked'))){e.preventDefault();alert('Please answer all health assessment questions.');return;}
+ if(yesPrevious()&&!date.value){e.preventDefault();alert('Please provide the date of your most recent blood donation.');date.focus();return;}
+ if(date.value&&new Date(date.value)>new Date()){e.preventDefault();alert('The most recent donation date cannot be in the future.');date.focus();}
+});
+</script>
+</body></html>

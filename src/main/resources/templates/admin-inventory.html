@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Blood Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css?v=inventory2">
+    <link rel="stylesheet" href="/css/admin-inventory.css?v=inventory2">
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+<body>
+<header class="top-navbar">
+    <a href="/admin-dashboard" class="top-brand">
+        <img src="/images/logo.jpg" alt="LifeLink Logo">
+        <span>LifeLink</span>
+    </a>
+    <button type="button" class="mobile-menu" id="mobileMenu" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="top-actions">
+        <div class="admin-top-profile">
+            <div class="admin-top-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div>
+                <strong th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </div>
+        <div class="profile-divider"></div>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i><span></span></button>
+    </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+    <div class="admin-profile">
+        <div class="admin-avatar"><i class="fa-solid fa-user-shield"></i></div>
+        <div>
+            <h3 th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Admin</h3>
+            <p>Administrator</p>
+        </div>
+    </div>
+    <nav class="sidebar-menu">
+        <a href="/admin-dashboard" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-house"></i></span><span>Dashboard</span></a>
+        <a href="/admin/donors" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-users"></i></span><span>Donor Management</span></a>
+        <a href="/admin/eligibility" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-clipboard-check"></i></span><span>Eligibility Review</span></a>
+        <a href="/admin/appointments" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-calendar-check"></i></span><span>Appointment Management</span></a>
+        <a href="/admin/donations" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-droplet"></i></span><span>Donation Management</span></a>
+        <a href="/admin/inventory" class="sidebar-item active"><span class="menu-icon"><i class="fa-solid fa-boxes-stacked"></i></span><span>Blood Inventory</span></a>
+        <a href="/admin/blood-requests" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-hand-holding-droplet"></i></span><span>Blood Requests</span></a>
+        <a href="/admin/reports" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-chart-column"></i></span><span>Reports</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+        <button type="button" class="logout-button" id="logoutButton"><span class="menu-icon"><i class="fa-solid fa-right-from-bracket"></i></span><span>Logout</span></button>
+    </div>
+</aside>
+
+<main class="main-content inventory-main">
+    <section class="inventory-page">
+        <div class="inventory-heading">
+            <div>
+                <span class="eyebrow">INVENTORY MANAGEMENT</span>
+                <h1>Blood Inventory</h1>
+                <p>Monitor the current blood stock recorded in the LifeLink database.</p>
+            </div>
+            <a href="/admin-dashboard" class="secondary-button"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+
+        <div class="inventory-summary">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div><span>Total Blood Units</span><strong th:text="${totalUnits}">0</strong><small>units currently recorded</small></div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fa-solid fa-droplet"></i></div>
+                <div><span>Available Blood Types</span><strong th:text="${availableTypes}">0</strong><small>types with stock available</small></div>
+            </div>
+            <div class="summary-card warning-card">
+                <div class="summary-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div><span>Low Stock</span><strong th:text="${lowStockTypes}">0</strong><small>types with 1–5 units</small></div>
+            </div>
+        </div>
+
+        <section class="inventory-panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>Current Blood Stock</h2>
+                    <p>Each card shows the latest quantity stored for that blood type.</p>
+                </div>
+                <span class="live-label"><i class="fa-solid fa-circle"></i> Live database</span>
+            </div>
+
+            <div class="blood-grid" th:if="${!#lists.isEmpty(inventory)}">
+                <article class="blood-card" th:each="item : ${inventory}">
+                    <div class="blood-card-top">
+                        <div class="blood-drop"><i class="fa-solid fa-droplet"></i></div>
+                        <span class="stock-status"
+                              th:classappend="${item.units == null || item.units == 0 ? ' empty' : (item.units <= 5 ? ' low' : ' available')}"
+                              th:text="${item.units == null || item.units == 0 ? 'Out of stock' : (item.units <= 5 ? 'Low stock' : 'Available')}">Available</span>
+                    </div>
+                    <div class="blood-type-large" th:text="${item.bloodType}">O+</div>
+                    <div class="units-value"><strong th:text="${item.units == null ? 0 : item.units}">0</strong><span>units</span></div>
+                    <div class="stock-bar"><span th:style="'width:' + (${item.units == null ? 0 : item.units} > 100 ? 100 : ${item.units == null ? 0 : item.units}) + '%'"></span></div>
+                </article>
+            </div>
+
+            <div class="inventory-empty" th:if="${#lists.isEmpty(inventory)}">
+                <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+                <h3>No blood inventory records</h3>
+                <p>There are currently no blood stock records in the database.</p>
+                <a href="/admin/donations" class="primary-button"><i class="fa-solid fa-plus"></i> Record Donation</a>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script src="/js/admin-dashboard.js?v=inventory2"></script>
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Donor Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin-donors.css?v=20260917">
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/admin-dashboard" class="brand">
+        <img src="/images/logo.jpg" alt="LifeLink">
+        <div>
+            <strong>Life<span>Link</span></strong>
+            <small>BLOOD DONATION SYSTEM</small>
+        </div>
+    </a>
+
+    <div class="top-actions">
+        
+        <div class="admin-profile">
+            <div class="admin-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div>
+                <strong th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <button class="theme-toggle" type="button" id="themeToggle" title="Toggle theme" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i><span></span></button>
+    </div>
+</header>
+
+<main class="page">
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">ADMINISTRATION / DONORS</div>
+            <h1>Donor Management</h1>
+            <p>View, add, edit, and manage all registered donors.</p>
+        </div>
+
+        <a href="/admin/donors/add" class="primary-button"><i class="fa-solid fa-user-plus"></i> Add Donor</a>
+    </div>
+
+    <div th:if="${param.added}" class="alert success">Donor account added successfully.</div>
+    <div th:if="${param.updated}" class="alert success">Donor information updated successfully.</div>
+    <div th:if="${param.deleted}" class="alert success">Donor deleted successfully.</div>
+    <div th:if="${param.deleteError}" class="alert error">This donor cannot be deleted because related records are still connected to the account.</div>
+
+    <form class="search-panel" method="get" action="/admin/donors">
+
+        <div class="search-box">
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+
+            <input
+                type="text"
+                name="keyword"
+                th:value="${keyword}"
+                placeholder="Search donor by name, username, email, contact, or blood type..."
+                autocomplete="off">
+        </div>
+
+        <button type="submit" class="search-button">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+
+        <a href="/admin/donors" class="clear-button">
+            <i class="fa-solid fa-rotate-left"></i> Clear
+        </a>
+
+    </form>
+
+    <section class="table-card">
+        <div class="table-header">
+            <div>
+                <h2>Registered Donors</h2>
+                <p th:text="${#lists.size(donors)} + ' donor(s) found'">0 donor(s) found</p>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>FULL NAME</th>
+                    <th>USERNAME</th>
+                    <th>BLOOD TYPE</th>
+                    <th>CONTACT</th>
+                    <th>EMAIL</th>
+                    <th>BIRTHDATE</th>
+                    <th>ACTIONS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(donors)}">
+                    <td colspan="8" class="empty">No donor records found in the database.</td>
+                </tr>
+
+                <tr th:each="donor : ${donors}">
+                    <td th:text="${'D-' + #numbers.formatInteger(donor.id, 3)}">D-001</td>
+
+                    <td>
+                        <div class="name-cell">
+                            <div class="avatar" th:text="${#strings.substring(donor.firstName,0,1) + #strings.substring(donor.lastName,0,1)}">JC</div>
+                            <div>
+                                <strong th:text="${donor.firstName + ' ' + donor.lastName}">Juan Dela Cruz</strong>
+                                <small th:text="${donor.age != null ? donor.age + ' years old' : 'Age not set'}">23 years old</small>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td th:text="${donor.username}">juandc</td>
+
+                    <td>
+                        <span class="blood-badge" th:text="${donor.bloodType != null && !donor.bloodType.isBlank() ? donor.bloodType : 'N/A'}">O+</span>
+                    </td>
+
+                    <td th:text="${donor.contact != null && !donor.contact.isBlank() ? donor.contact : '—'}">0912 345 6789</td>
+
+                    <td th:text="${donor.email}">juandc@email.com</td>
+
+                    <td th:text="${donor.birthdate != null ? donor.birthdate : '—'}">2000-01-01</td>
+
+                    <td>
+                        <div class="actions">
+                            <a class="action view" th:href="@{/admin/donors/view/{id}(id=${donor.id})}" title="View"><i class="fa-regular fa-eye"></i></a>
+                            <a class="action edit" th:href="@{/admin/donors/edit/{id}(id=${donor.id})}" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            <form th:action="@{/admin/donors/delete/{id}(id=${donor.id})}" method="post"
+                                  onsubmit="return confirm('Delete this donor account? This action cannot be undone.');">
+                                <button class="action delete" type="submit" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-footer">
+            <span th:text="${'Showing ' + #lists.size(donors) + ' donor(s)'}">Showing 0 donors</span>
+        </div>
+    </section>
+</main>
+
+<script>
+    const toggle = document.getElementById('themeToggle');
+    if (localStorage.getItem('lifelink-theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('lifelink-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+</script>
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+</html>

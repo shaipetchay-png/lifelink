@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Donor Information</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin-donors.css?v=20260917">
+    <link rel="stylesheet" href="/css/admin-donor-detail.css?v=20260917">
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+<body>
+<header class="topbar">
+    <a href="/admin-dashboard" class="brand">
+        <img src="/images/logo.jpg" alt="LifeLink">
+        <div><strong>Life<span>Link</span></strong><small>BLOOD DONATION SYSTEM</small></div>
+    </a>
+    <div class="top-actions">
+        <span class="notification">♧</span><div class="divider"></div>
+        <div class="admin-profile"><div class="admin-avatar">👤</div><div><strong>Admin Profile</strong><span>Administrator</span></div></div>
+        <div class="divider"></div>
+        <button class="theme-toggle" type="button" id="themeToggle"><span></span></button>
+    </div>
+</header>
+
+<main class="admin-detail-page">
+    <a href="/admin/donors" class="admin-detail-back">← Back to Donor Management</a>
+
+    <div class="admin-detail-title">
+        <div>
+            <div class="eyebrow">ADMINISTRATION / DONOR PROFILE</div>
+            <h1>Donor Information</h1>
+            <p>View the complete registered information for this LifeLink donor.</p>
+        </div>
+        <div class="admin-detail-actions">
+            <a href="/admin/donors" class="admin-detail-btn secondary">← Donor List</a>
+            <a th:href="@{/admin/donors/edit/{id}(id=${donor.id})}" class="admin-detail-btn primary">✎ Edit Donor</a>
+        </div>
+    </div>
+
+    <section class="admin-donor-hero">
+        <div class="admin-donor-avatar" th:text="${#strings.substring(donor.firstName,0,1) + #strings.substring(donor.lastName,0,1)}">JC</div>
+        <div class="admin-donor-hero-copy">
+            <div class="eyebrow">REGISTERED DONOR</div>
+            <h2 th:text="${donor.firstName + ' ' + donor.lastName}">Juan Dela Cruz</h2>
+            <p th:text="${'@' + donor.username}">@juandc</p>
+        </div>
+        <span class="admin-donor-status">● Active Donor</span>
+    </section>
+
+    <div class="admin-detail-grid">
+        <section class="admin-detail-card">
+            <div class="admin-detail-card-head">
+                <div class="admin-detail-card-icon">01</div>
+                <div><h3>Personal Information</h3><p>Basic information registered for this donor.</p></div>
+            </div>
+            <div class="admin-detail-fields">
+                <div class="admin-detail-field"><label>First Name</label><strong th:text="${donor.firstName}">Juan</strong></div>
+                <div class="admin-detail-field"><label>Middle Name</label><strong th:text="${donor.middleName != null && !donor.middleName.isBlank() ? donor.middleName : 'Not provided'}">Dela</strong></div>
+                <div class="admin-detail-field"><label>Last Name</label><strong th:text="${donor.lastName}">Cruz</strong></div>
+                <div class="admin-detail-field"><label>Birthdate</label><strong th:text="${donor.birthdate != null ? donor.birthdate : 'Not provided'}">2000-01-01</strong></div>
+                <div class="admin-detail-field"><label>Age</label><strong th:text="${donor.age != null ? donor.age + ' years old' : 'Not provided'}">26 years old</strong></div>
+                <div class="admin-detail-field"><label>Gender</label><strong th:text="${donor.gender != null && !donor.gender.isBlank() ? donor.gender : 'Not provided'}">Male</strong></div>
+            </div>
+        </section>
+
+        <section class="admin-detail-card">
+            <div class="admin-detail-card-head">
+                <div class="admin-detail-card-icon">02</div>
+                <div><h3>Blood Information</h3><p>Registered blood type of the donor.</p></div>
+            </div>
+            <div class="admin-blood-box">
+                <div class="admin-blood-circle" th:text="${donor.bloodType != null && !donor.bloodType.isBlank() ? donor.bloodType : 'N/A'}">O+</div>
+                <div><span>Blood Type</span><strong th:text="${donor.bloodType != null && !donor.bloodType.isBlank() ? donor.bloodType : 'Not specified'}">O+</strong><small>Registered donor blood type</small></div>
+            </div>
+        </section>
+
+        <section class="admin-detail-card">
+            <div class="admin-detail-card-head">
+                <div class="admin-detail-card-icon">03</div>
+                <div><h3>Contact Information</h3><p>How the donor can be reached.</p></div>
+            </div>
+            <div class="admin-detail-fields">
+                <div class="admin-detail-field full"><label>Email Address</label><strong th:text="${donor.email}">juan@email.com</strong></div>
+                <div class="admin-detail-field"><label>Contact Number</label><strong th:text="${donor.contact != null && !donor.contact.isBlank() ? donor.contact : 'Not provided'}">0912 345 6789</strong></div>
+                <div class="admin-detail-field full"><label>Complete Address</label><strong th:text="${donor.address != null && !donor.address.isBlank() ? donor.address : 'Not provided'}">Manila, Philippines</strong></div>
+            </div>
+        </section>
+
+        <section class="admin-detail-card">
+            <div class="admin-detail-card-head">
+                <div class="admin-detail-card-icon">04</div>
+                <div><h3>Account Details</h3><p>System account information.</p></div>
+            </div>
+            <div class="admin-account-list">
+                <div class="admin-account-row"><span>Username</span><strong th:text="${donor.username}">juandc</strong></div>
+                <div class="admin-account-row"><span>Role</span><strong th:text="${donor.role}">DONOR</strong></div>
+                <div class="admin-account-row"><span>Account Status</span><strong class="active">Active</strong></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="admin-detail-footer">
+        <a href="/admin/donors" class="admin-detail-btn secondary">Cancel</a>
+        <a th:href="@{/admin/donors/edit/{id}(id=${donor.id})}" class="admin-detail-btn primary">✎ Edit Donor</a>
+    </div>
+</main>
+
+<script>
+const toggle=document.getElementById('themeToggle');
+if(localStorage.getItem('lifelink-theme')==='dark') document.body.classList.add('dark-mode');
+if(toggle) toggle.addEventListener('click',()=>{
+ document.body.classList.toggle('dark-mode');
+ localStorage.setItem('lifelink-theme',document.body.classList.contains('dark-mode')?'dark':'light');
+});
+</script>
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+</html>

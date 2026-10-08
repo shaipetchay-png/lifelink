@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LifeLink | Donor Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/donor-dashboard.css">
+
+
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+
+<body>
+
+        <!-- TOP BAR -->
+
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+        <header class="top-navbar">
+
+            <!-- LIFELINK BRAND -->
+            <a href="/dashboard" class="top-brand">
+
+                <img
+                    src="/images/logo.jpg"
+                    alt="LifeLink Logo"
+                >
+
+                <span>LifeLink</span>
+
+            </a>
+
+
+            <!-- MOBILE MENU -->
+            <button
+                type="button"
+                class="mobile-menu"
+                id="mobileMenu"
+            >
+                ☰
+            </button>
+
+
+            <!-- RIGHT ACTIONS -->
+            <div class="top-actions">
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    id="notificationButton"
+                    aria-label="Notifications"
+                >
+                    🔔
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                >
+                    <span></span>
+                </button>
+
+            </div>
+
+        </header>
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- DONOR -->
+        <div class="donor-profile">
+
+            <div class="donor-avatar">
+                <span>👤</span>
+            </div>
+
+            <div>
+                <h3 th:text="${loggedInUser.firstName}">Donor</h3>
+                <p>Welcome back!</p>
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+        <nav class="sidebar-menu">
+
+            <a href="/dashboard" class="sidebar-item active">
+
+                <span class="menu-icon">🏠︎</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="/donor-information" class="sidebar-item">
+
+                <span class="menu-icon">≡</span>
+                <span>Donor Information</span>
+
+            </a>
+
+
+            <a href="/eligibility" class="sidebar-item">
+
+                <span class="menu-icon">📊</span>
+                <span>Eligibility / Status</span>
+
+            </a>
+
+
+            <a href="/schedule-donation" class="sidebar-item">
+
+                <span class="menu-icon">📆</span>
+                <span>Schedule Donation</span>
+
+            </a>
+
+
+            <a href="/donation-history" class="sidebar-item">
+
+                <span class="menu-icon">📜</span>
+                <span>Donation History</span>
+
+            </a>
+
+
+            <a href="/appointment" class="sidebar-item">
+
+                <span class="menu-icon">☎</span>
+                <span>Upcoming Appointment</span>
+
+            </a>
+
+
+            <a href="/blood-requests" class="sidebar-item">
+
+                <span class="menu-icon">🩸</span>
+                <span>Blood Requests</span>
+
+            </a>
+
+
+            <a href="/profile" class="sidebar-item">
+
+                <span class="menu-icon">👤</span>
+                <span>Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+
+                <span class="menu-icon">➜]</span>
+
+                <span>Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
+        <section class="dashboard">
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome-banner">
+
+                <a
+                    href="/profile"
+                    class="welcome-image"
+                >
+
+                    <img
+                        src="/images/heart.png"
+                        alt="Blood Donation"
+                    >
+
+                </a>
+
+
+                <div class="welcome-content">
+
+                    <h1>
+                        Welcome, <span th:text="${loggedInUser.firstName}">Donor</span>! 👋
+                    </h1>
+
+                    <p>
+                        Thank you for being a hero.
+                    </p>
+
+                    <strong>
+                        Every drop counts.
+                    </strong>
+
+                </div>
+
+
+                    <div class="heartbeat">
+                        <svg viewBox="0 0 420 90" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0 50
+                                H70
+                                L90 50
+                                L105 38
+                                L120 50
+                                H155
+                                L170 50
+                                L188 8
+                                L202 78
+                                L215 30
+                                L228 50
+                                H260"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+
+                            <path
+                                d="M260 25
+                                C260 8 280 2 292 15
+                                C304 2 324 8 324 25
+                                C324 45 292 67 292 67
+                                C292 67 260 45 260 25Z"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+
+                            <path
+                                d="M324 50 H420"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 SUMMARY CARDS
+            ========================== -->
+
+            <div class="summary-grid">
+
+
+                <!-- ELIGIBILITY -->
+
+                <a
+                    href="/eligibility"
+                    class="summary-card"
+                >
+
+                    <div class="summary-icon">
+                        ✓
+                    </div>
+
+                    <div class="summary-info">
+
+                        <p>
+                            Donation Eligibility
+                        </p>
+
+                        <div th:if="${assessment != null}">
+                            <h2 th:classappend="${eligibilityStatus == 'ELIGIBLE' ? ' eligible' : eligibilityStatus == 'NOT_ELIGIBLE' ? ' not-eligible' : ' in-process'}"
+                                th:text="${eligibilityStatus == 'ELIGIBLE' ? 'Eligible' : eligibilityStatus == 'NOT_ELIGIBLE' ? 'Not Eligible' : 'In Process'}">Eligible</h2>
+                            <span th:text="${'Blood Readiness Score: ' + bloodReadinessScore + '%'}">Blood Readiness Score: 0%</span>
+                        </div>
+
+                        <div th:if="${assessment == null}">
+                            <h2 class="in-process">In Process</h2>
+                            <span>Complete the health assessment.</span>
+                        </div>
+
+                        <b>
+                            View Details →
+                        </b>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- APPOINTMENT -->
+
+                <a
+                    href="/appointment"
+                    class="summary-card"
+                >
+
+                    <div class="summary-icon">
+                        ▣
+                    </div>
+
+                    <div class="summary-info">
+
+                        <p>
+                            Upcoming Appointment
+                        </p>
+
+                        <div th:if="${upcomingAppointment != null}">
+
+                            <h2
+                                th:text="${#temporals.format(upcomingAppointment.appointmentDate, 'MMMM d, yyyy')}"
+                            >
+                                Appointment Date
+                            </h2>
+
+                            <span>
+                                ◷ &nbsp;
+
+                                <span
+                                    th:text="${#temporals.format(upcomingAppointment.appointmentTime, 'h:mm a')}"
+                                >
+                                    Appointment Time
+                                </span>
+                            </span>
+
+                        </div>
+
+                        <div th:if="${upcomingAppointment == null}">
+
+                            <h2>
+                                No Appointment
+                            </h2>
+
+                            <span>
+                                No upcoming donation scheduled.
+                            </span>
+
+                        </div>
+
+                        <b>
+                            View Appointment →
+                        </b>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- BLOOD TYPE -->
+
+                <a
+                    href="/donor-information"
+                    class="summary-card"
+                >
+
+                    <div class="summary-icon">
+                        🩸
+                    </div>
+
+                    <div class="summary-info">
+
+                        <p>
+                            Blood Type
+                        </p>
+
+                        <h2 th:text="${bloodType}">
+                            Not Set
+                        </h2>
+
+                        <span>
+                            Registered Blood Type
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- TOTAL DONATIONS -->
+
+                <a
+                    href="/donation-history"
+                    class="summary-card"
+                >
+
+                    <div class="summary-icon">
+                        ♥
+                    </div>
+
+                    <div class="summary-info">
+
+                        <p>
+                            Total Donations
+                        </p>
+
+                        <h2 th:text="${totalDonations}">
+                            0
+                        </h2>
+
+                        <span>
+                            Completed donations
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =========================
+                 SECOND ROW
+            ========================== -->
+
+            <div class="content-grid">
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <a
+                            href="/schedule-donation"
+                            class="quick-action"
+                        >
+
+                            <span>▣</span>
+
+                            <strong>
+                                Schedule a Donation
+                            </strong>
+
+                            <b>›</b>
+
+                        </a>
+
+
+                        <a
+                            href="/blood-requests"
+                            class="quick-action"
+                        >
+
+                            <span>🩸</span>
+
+                            <strong>
+                                View Blood Requests
+                            </strong>
+
+                            <b>›</b>
+
+                        </a>
+
+
+                        <a
+                            href="/donation-history"
+                            class="quick-action"
+                        >
+
+                            <span>▤</span>
+
+                            <strong>
+                                View Donation History
+                            </strong>
+
+                            <b>›</b>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- APPOINTMENT -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Upcoming Appointment
+                        </h2>
+
+                        <a href="/appointment">
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    <a href="/appointment" class="appointment-box" th:if="${upcomingAppointment != null}">
+                        <div class="calendar">
+                            <span th:text="${#temporals.format(upcomingAppointment.appointmentDate,'MMM')}">MAY</span>
+                            <strong th:text="${#temporals.format(upcomingAppointment.appointmentDate,'d')}">28</strong>
+                        </div>
+                        <div class="appointment-info">
+                            <h3 th:text="${#temporals.format(upcomingAppointment.appointmentDate,'MMMM d, yyyy')}">Date</h3>
+                            <p th:text="${'◷  ' + #temporals.format(upcomingAppointment.appointmentTime,'h:mm a')}">Time</p>
+                            <p th:text="${'📍 ' + upcomingAppointment.location}">Location</p>
+                        </div>
+                    </a>
+                    <a href="/schedule-donation" class="appointment-box" th:if="${upcomingAppointment == null}">
+                        <div class="calendar"><span>---</span><strong>+</strong></div>
+                        <div class="appointment-info"><h3>No upcoming appointment</h3><p>Schedule your next donation.</p></div>
+                    </a>
+
+                    <a
+                        href="/appointment"
+                        class="appointment-button"
+                    >
+                        Reschedule / Cancel
+                    </a>
+
+                </div>
+
+
+
+                <!-- HISTORY -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Donation History
+                        </h2>
+
+                        <a href="/donation-history">
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    <div class="history-list">
+                        <div th:if="${#lists.isEmpty(donations)}" class="history-row"><span>No donation records yet.</span></div>
+                        <a th:each="d : ${donations}" href="/donation-history" class="history-row">
+                            <span class="blood-drop">🩸</span>
+                            <span th:text="${#temporals.format(d.donationDate,'MMM d, yyyy')}">Date</span>
+                            <span th:text="${d.bloodType}">O+</span>
+                            <span class="completed" th:text="${d.status}">Completed</span>
+                        </a>
+                    </div>
+
+
+                    <a
+                        href="/donation-history"
+                        class="view-history"
+                    >
+                        View All History →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 BLOOD REQUESTS
+            ========================== -->
+
+            <div class="dashboard-card blood-request-card">
+                <div class="card-header">
+                    <h2>Blood Requests</h2>
+                    <a href="/blood-requests">View All</a>
+                </div>
+                <div th:if="${#lists.isEmpty(recentRequests)}" class="request-row">
+                    <span>No blood requests for your blood type.</span>
+                </div>
+                <a th:each="r : ${recentRequests}" href="/blood-requests" class="request-row">
+                    <span class="request-icon">🩸</span>
+                    <span class="request-patient"><span th:text="${'Patient: ' + r.patientName}">Patient</span><strong th:text="${r.bloodType + ' | ' + r.units + ' Units'}">O+ | 2 Units</strong></span>
+                    <span class="request-hospital"><span>Hospital</span><strong th:text="${r.hospital}">Hospital</strong></span>
+                    <span class="request-priority"><span>Priority</span><strong th:text="${r.priority}">Urgent</strong></span>
+                    <span class="request-status"><span>Status</span><strong th:text="${r.status}">Pending</strong></span>
+                    <span class="view-request">View Details</span>
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="/js/donor-dashboard.js"></script>
+
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+
+</html>

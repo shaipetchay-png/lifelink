@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css?v=20260925">
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+<body>
+
+<header class="top-navbar">
+    <a href="/admin-dashboard" class="top-brand">
+        <img src="/images/logo.jpg" alt="LifeLink Logo">
+        <span>LifeLink</span>
+    </a>
+
+    <button type="button" class="mobile-menu" id="mobileMenu" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="top-actions">
+        <div class="admin-top-profile">
+            <div class="admin-top-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <div>
+                <strong th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </div>
+        <div class="profile-divider"></div>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon"></i>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+    <div class="admin-profile">
+        <div class="admin-avatar"><i class="fa-solid fa-user-shield"></i></div>
+        <div>
+            <h3 th:text="${loggedInUser.firstName + ' ' + loggedInUser.lastName}">Admin</h3>
+            <p>Administrator</p>
+        </div>
+    </div>
+
+    <nav class="sidebar-menu">
+        <a href="/admin-dashboard" class="sidebar-item active"><span class="menu-icon"><i class="fa-solid fa-house"></i></span><span>Dashboard</span></a>
+        <a href="/admin/donors" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-users"></i></span><span>Donor Management</span></a>
+        <a href="/admin/eligibility" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-clipboard-check"></i></span><span>Eligibility Review</span></a>
+        <a href="/admin/appointments" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-calendar-check"></i></span><span>Appointment Management</span></a>
+        <a href="/admin/donations" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-droplet"></i></span><span>Donation Management</span></a>
+        <a href="/admin/inventory" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-boxes-stacked"></i></span><span>Blood Inventory</span></a>
+        <a href="/admin/blood-requests" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-hand-holding-droplet"></i></span><span>Blood Requests</span></a>
+        <a href="/admin/reports" class="sidebar-item"><span class="menu-icon"><i class="fa-solid fa-chart-column"></i></span><span>Reports</span></a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button type="button" class="logout-button" id="logoutButton">
+            <span class="menu-icon"><i class="fa-solid fa-right-from-bracket"></i></span><span>Logout</span>
+        </button>
+    </div>
+</aside>
+
+<main class="main-content">
+    <section class="dashboard" id="dashboard">
+        <div class="page-heading">
+            <div>
+                <span class="eyebrow">ADMINISTRATION</span>
+                <h1>Dashboard</h1>
+                <p>Manage LifeLink records and monitor the latest activity stored in the system.</p>
+            </div>
+            <a href="/admin/donors/add" class="primary-button">
+                <i class="fa-solid fa-user-plus"></i> Add Donor
+            </a>
+        </div>
+
+        <div class="welcome-banner">
+            <div class="welcome-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <div class="welcome-content">
+                <h2>Welcome, <span th:text="${loggedInUser.firstName}">Admin</span>.</h2>
+                <p>This dashboard displays information based on records currently saved in the LifeLink database.</p>
+            </div>
+        </div>
+
+        <div class="stat-grid" aria-label="LifeLink summary statistics">
+            <a class="stat-card" href="/admin/donors">
+                <span class="stat-icon"><i class="fa-solid fa-users"></i></span>
+                <span class="stat-copy"><small>Total Donors</small><strong th:text="${totalDonors}">0</strong><em>Registered donor accounts</em></span>
+            </a>
+            <a class="stat-card" href="/admin/donations">
+                <span class="stat-icon"><i class="fa-solid fa-droplet"></i></span>
+                <span class="stat-copy"><small>Total Donations</small><strong th:text="${totalDonations}">0</strong><em>Completed donations</em></span>
+            </a>
+            <a class="stat-card" href="/admin/appointments">
+                <span class="stat-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                <span class="stat-copy"><small>Upcoming Appointments</small><strong th:text="${upcomingAppointmentCount}">0</strong><em>Pending or approved</em></span>
+            </a>
+            <a class="stat-card" href="/admin/blood-requests">
+                <span class="stat-icon"><i class="fa-solid fa-hand-holding-droplet"></i></span>
+                <span class="stat-copy"><small>Blood Requests</small><strong th:text="${bloodRequestCount}">0</strong><em>Requests in database</em></span>
+            </a>
+            <a class="stat-card" href="/admin/inventory">
+                <span class="stat-icon"><i class="fa-solid fa-boxes-stacked"></i></span>
+                <span class="stat-copy"><small>Blood Inventory</small><strong th:text="${totalInventoryUnits}">0</strong><em>Total available units</em></span>
+            </a>
+        </div>
+
+        <div class="dashboard-grid">
+            <section class="dashboard-card inventory-card" id="blood-inventory">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-boxes-stacked"></i></span><div><h2>Blood Inventory</h2><p>Recorded blood stock</p></div></div>
+                    <a href="/admin/inventory">Manage</a>
+                </div>
+
+                <div class="empty-state" th:if="${#lists.isEmpty(inventory)}">
+                    <i class="fa-solid fa-box-open"></i>
+                    <strong>No inventory records</strong>
+                    <span>Blood stock will appear here after it is recorded.</span>
+                </div>
+
+                <div class="inventory-list" th:if="${!#lists.isEmpty(inventory)}">
+                    <div class="inventory-row" th:each="i : ${inventory}">
+                        <div class="blood-type" th:text="${i.bloodType}">O+</div>
+                        <div class="inventory-track"><span></span></div>
+                        <strong th:text="${i.units == null ? 0 : i.units}">0</strong>
+                        <span class="unit-label">units</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-card" id="blood-requests">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-hand-holding-droplet"></i></span><div><h2>Recent Blood Requests</h2><p>Latest requests in the database</p></div></div>
+                    <a href="/admin/blood-requests">View all</a>
+                </div>
+
+                <div class="table-wrap" th:if="${!#lists.isEmpty(recentRequests)}">
+                    <table>
+                        <thead><tr><th>Patient</th><th>Blood Type</th><th>Units</th><th>Priority</th><th>Status</th></tr></thead>
+                        <tbody>
+                        <tr th:each="r : ${recentRequests}">
+                            <td><strong th:text="${r.patientName}">Patient</strong><small th:text="${r.hospital}">Hospital</small></td>
+                            <td th:text="${r.bloodType}">O+</td>
+                            <td th:text="${r.units}">0</td>
+                            <td><span class="priority" th:classappend="${r.priority == 'URGENT' ? ' urgent' : ' normal-text'}" th:text="${r.priority}">NORMAL</span></td>
+                            <td><span class="badge" th:classappend="${r.status == 'APPROVED' ? ' approved' : (r.status == 'REJECTED' ? ' rejected' : ' pending')}" th:text="${r.status}">PENDING</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="empty-state compact" th:if="${#lists.isEmpty(recentRequests)}">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <strong>No blood requests recorded</strong>
+                    <span>New requests will appear here.</span>
+                </div>
+            </section>
+
+            <section class="dashboard-card" id="appointment-management">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-calendar-check"></i></span><div><h2>Upcoming Appointments</h2><p>Scheduled donor appointments</p></div></div>
+                    <a href="/admin/appointments">View all</a>
+                </div>
+
+                <div class="appointment-list" th:if="${!#lists.isEmpty(upcomingAppointments)}">
+                    <div class="appointment-row" th:each="a : ${upcomingAppointments}">
+                        <div class="date-box"><span th:text="${#temporals.format(a.appointmentDate,'dd')}">01</span><small th:text="${#temporals.format(a.appointmentDate,'MMM')}">JAN</small></div>
+                        <div class="appointment-info"><strong th:text="${a.donor.firstName + ' ' + a.donor.lastName}">Donor</strong><span><i class="fa-regular fa-clock"></i> <span th:text="${#temporals.format(a.appointmentTime,'h:mm a')}">9:00 AM</span> · <span th:text="${a.location}">Location</span></span></div>
+                        <span class="badge" th:classappend="${a.status == 'APPROVED' ? ' approved' : ' pending'}" th:text="${a.status}">PENDING</span>
+                    </div>
+                </div>
+                <div class="empty-state compact" th:if="${#lists.isEmpty(upcomingAppointments)}">
+                    <i class="fa-regular fa-calendar-xmark"></i>
+                    <strong>No upcoming appointments</strong>
+                    <span>Scheduled appointments will appear here.</span>
+                </div>
+            </section>
+
+            <section class="dashboard-card" id="donor-management">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-users"></i></span><div><h2>Recent Donors</h2><p>Latest registered donor accounts</p></div></div>
+                    <a href="/admin/donors">View all</a>
+                </div>
+
+                <div class="donor-list" th:if="${!#lists.isEmpty(recentDonors)}">
+                    <a class="donor-row" th:each="d : ${recentDonors}" th:href="@{'/admin/donors/view/' + d.id}">
+                        <span class="avatar" th:text="${#strings.substring(d.firstName,0,1) + #strings.substring(d.lastName,0,1)}">JD</span>
+                        <span class="donor-info"><strong th:text="${d.firstName + ' ' + d.lastName}">Donor Name</strong><small><span th:text="${d.bloodType != null && !d.bloodType.isBlank() ? d.bloodType : 'Blood type not set'}">O+</span> · <span th:text="${d.username}">username</span></small></span>
+                        <i class="fa-solid fa-chevron-right row-arrow"></i>
+                    </a>
+                </div>
+                <div class="empty-state compact" th:if="${#lists.isEmpty(recentDonors)}">
+                    <i class="fa-regular fa-user"></i>
+                    <strong>No donor accounts yet</strong>
+                    <span>Registered donors will appear here.</span>
+                </div>
+            </section>
+
+            <section class="dashboard-card" id="eligibility-review">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-clipboard-check"></i></span><div><h2>Recent Eligibility Reviews</h2><p>Latest donor assessments</p></div></div>
+                    <a href="/admin/eligibility">Review all</a>
+                </div>
+
+                <div class="review-list" th:if="${!#lists.isEmpty(recentAssessments)}">
+                    <div class="review-row" th:each="a : ${recentAssessments}">
+                        <div class="review-person"><span class="avatar small" th:text="${#strings.substring(a.donor.firstName,0,1) + #strings.substring(a.donor.lastName,0,1)}">JD</span><div><strong th:text="${a.donor.firstName + ' ' + a.donor.lastName}">Donor</strong><small th:text="${#temporals.format(a.assessedAt,'MMM d, yyyy h:mm a')}">Date</small></div></div>
+                        <span class="badge" th:classappend="${a.result == 'ELIGIBLE' ? ' approved' : (a.result == 'NOT_ELIGIBLE' ? ' rejected' : ' pending')}" th:text="${a.result == 'NOT_ELIGIBLE' ? 'Not Eligible' : (a.result == 'IN_PROCESS' ? 'In Process' : 'Eligible')}">Eligible</span>
+                    </div>
+                </div>
+                <div class="empty-state compact" th:if="${#lists.isEmpty(recentAssessments)}">
+                    <i class="fa-regular fa-clipboard"></i>
+                    <strong>No eligibility assessments yet</strong>
+                    <span>Completed assessments will appear here.</span>
+                </div>
+            </section>
+
+            <section class="dashboard-card quick-card">
+                <div class="card-header">
+                    <div class="card-title"><span class="title-icon"><i class="fa-solid fa-bolt"></i></span><div><h2>Quick Actions</h2><p>Common admin tasks</p></div></div>
+                </div>
+                <div class="quick-actions">
+                    <a href="/admin/donors/add"><i class="fa-solid fa-user-plus"></i><span>Add Donor</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/eligibility"><i class="fa-solid fa-clipboard-check"></i><span>Review Eligibility</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/appointments"><i class="fa-solid fa-calendar-check"></i><span>Manage Appointments</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/donations"><i class="fa-solid fa-droplet"></i><span>Record Donation</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/blood-requests"><i class="fa-solid fa-hand-holding-droplet"></i><span>Manage Blood Requests</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/reports"><i class="fa-solid fa-chart-column"></i><span>Open Reports</span><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </section>
+        </div>
+
+        <div class="database-note">
+            <i class="fa-solid fa-database"></i>
+            <div><strong>Live database view</strong><span>Dashboard records are loaded from the LifeLink database. No sample donor, request, appointment, donation, or inventory values are displayed.</span></div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/admin-dashboard.js"></script>
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+</html>

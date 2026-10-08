@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink | Reports</title>
+<link rel="stylesheet" href="/css/reports.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="/admin-dashboard" class="brand"><img src="/images/logo.jpg" alt="LifeLink"><span>LifeLink <small>ADMIN REPORTS</small></span></a>
+  <a href="/admin-dashboard" class="back">← Back to Dashboard</a>
+</header>
+<main class="page">
+  <section class="hero">
+    <div><span class="eyebrow">ADMIN MODULE</span><h1>Reports</h1><p>View and verify database records for donors, donations, eligibility, inventory, and appointments.</p></div>
+  </section>
+
+  <nav class="report-tabs">
+    <a th:classappend="${report=='donors' ? 'active':''}" href="/admin/reports?report=donors">Donor Report</a>
+    <a th:classappend="${report=='donations' ? 'active':''}" href="/admin/reports?report=donations">Donation Report</a>
+    <a th:classappend="${report=='eligibility' ? 'active':''}" href="/admin/reports?report=eligibility">Eligibility Report</a>
+    <a th:classappend="${report=='inventory' ? 'active':''}" href="/admin/reports?report=inventory">Blood Inventory</a>
+    <a th:classappend="${report=='appointments' ? 'active':''}" href="/admin/reports?report=appointments">Appointment Report</a>
+  </nav>
+
+  <form class="filters" method="get" action="/admin/reports">
+    <input type="hidden" name="report" th:value="${report}">
+    <label>Search<input name="search" th:value="${search}" placeholder="Search donor, username, or name"></label>
+    <label>Blood Type
+      <select name="bloodType">
+        <option value="">All Blood Types</option>
+        <option th:each="type : ${ {'A+','A-','B+','B-','AB+','AB-','O+','O-'} }" th:value="${type}" th:text="${type}" th:selected="${bloodType == type}"></option>
+      </select>
+    </label>
+    <label>Date From<input type="date" name="dateFrom" th:value="${dateFrom}"></label>
+    <label>Date To<input type="date" name="dateTo" th:value="${dateTo}"></label>
+    <button type="submit">Apply Filters</button>
+    <a class="clear" th:href="@{/admin/reports(report=${report})}">Clear</a>
+  </form>
+
+  <section class="card">
+    <div class="card-head"><div><h2 th:text="${report=='donors'?'Donor Report':report=='donations'?'Donation Report':report=='eligibility'?'Eligibility Report':report=='inventory'?'Blood Inventory Report':'Appointment Report'}">Report</h2>
+    <p th:text="${#lists.size(rows) + ' record(s) found'}">0 records</p></div></div>
+
+    <div class="empty" th:if="${#lists.isEmpty(rows)}">No database records match the selected filters.</div>
+
+    <div class="table-wrap" th:if="${!#lists.isEmpty(rows)}">
+      <table th:if="${report=='donors'}"><thead><tr><th>Name</th><th>Blood Type</th><th>Email</th><th>Contact</th><th>Username</th></tr></thead>
+      <tbody><tr th:each="u:${rows}"><td th:text="${u.firstName+' '+(u.middleName==null?'':u.middleName+' ')+u.lastName}"></td><td th:text="${u.bloodType}"></td><td th:text="${u.email}"></td><td th:text="${u.contact}"></td><td th:text="${u.username}"></td></tr></tbody></table>
+
+      <table th:if="${report=='donations'}"><thead><tr><th>Donor</th><th>Blood Type</th><th>Date</th><th>Units</th><th>Status</th></tr></thead>
+      <tbody><tr th:each="d:${rows}"><td th:text="${d.donor.firstName+' '+d.donor.lastName}"></td><td th:text="${d.bloodType}"></td><td th:text="${d.donationDate}"></td><td th:text="${d.units}"></td><td th:text="${d.status}"></td></tr></tbody></table>
+
+      <table th:if="${report=='eligibility'}"><thead><tr><th>Donor</th><th>Result</th><th>Readiness Score</th><th>Assessed At</th></tr></thead>
+      <tbody><tr th:each="a:${rows}"><td th:text="${a.donor.firstName+' '+a.donor.lastName}"></td><td th:text="${a.result}"></td><td th:text="${a.bloodReadinessScore+'%'}"></td><td th:text="${a.assessedAt}"></td></tr></tbody></table>
+
+      <table th:if="${report=='inventory'}"><thead><tr><th>Blood Type</th><th>Units</th><th>Availability</th></tr></thead>
+      <tbody><tr th:each="i:${rows}"><td th:text="${i.bloodType}"></td><td th:text="${i.units}"></td><td th:text="${i.units==null || i.units<=5?'Critical':i.units<=10?'Low':'Normal'}"></td></tr></tbody></table>
+
+      <table th:if="${report=='appointments'}"><thead><tr><th>Donor</th><th>Blood Type</th><th>Date</th><th>Time</th><th>Location</th><th>Status</th></tr></thead>
+      <tbody><tr th:each="a:${rows}"><td th:text="${a.donor.firstName+' '+a.donor.lastName}"></td><td th:text="${a.donor.bloodType}"></td><td th:text="${a.appointmentDate}"></td><td th:text="${a.appointmentTime}"></td><td th:text="${a.location}"></td><td th:text="${a.status}"></td></tr></tbody></table>
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,2011 @@
+/* =========================================================
+   LIFE LINK LOGIN PAGE
+   ========================================================= */
+
+:root {
+    --primary-red: #550000;
+    --dark-red: #700000;
+    --blood-red: #c91d1d;
+    --light-red: #ffe2e2;
+    --white: #ffffff;
+    --text-gray: #555555;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Background image */
+
+.background-image {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.05);
+}
+
+
+/* Pink/white overlay */
+
+.background-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 225, 225, 0.82);
+}
+
+
+/* =========================================================
+   SITE WRAPPER
+   ========================================================= */
+
+.site-wrapper {
+    min-height: 100vh;
+    position: relative;
+}
+
+
+/* =========================================================
+   NAVIGATION BAR
+   ========================================================= */
+
+.navbar {
+    height: 90px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 45px;
+    box-sizing: border-box;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Logo */
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+}
+
+
+.logo-image {
+    width: 48px;
+    height: 48px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+
+.logo-text {
+    font-size: 32px;
+    font-weight: 800;
+
+    color: #550000;
+}
+
+
+/* Navigation */
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+}
+
+
+.nav-link {
+    text-decoration: none;
+
+    color: #550000;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.nav-link:hover {
+    color: #c91d1d;
+}
+
+
+.nav-link.active {
+    color: #c91d1d;
+}
+
+
+/* Theme button */
+
+.theme-toggle {
+    width: 48px;
+    height: 26px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #ff9ba0;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+
+.theme-toggle span {
+    width: 20px;
+    height: 20px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 3px;
+    left: 4px;
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
+.login-page {
+    min-height: calc(100vh - 90px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 45px 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LOGIN CONTAINER
+   ========================================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 1000px;
+
+    min-height: 540px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: row-reverse;
+
+    box-shadow:
+        0 20px 45px rgba(80, 0, 0, 0.30);
+}
+
+
+/* =========================================================
+   RIGHT SIDE - LOGIN FORM
+   ========================================================= */
+
+.login-right {
+    flex: 1;
+
+    padding: 55px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.login-right h1 {
+    margin: 0 0 12px;
+
+    font-size: 38px;
+    font-weight: 800;
+
+    color: #8b0000;
+}
+
+
+.login-right p {
+    margin: 0 0 35px;
+
+    font-size: 15px;
+
+    color: #777777;
+}
+
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
+
+.login-form {
+    width: 100%;
+}
+
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #333333;
+}
+
+
+.form-group input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+
+.form-group input:focus {
+    border-color: #c91d1d;
+
+    box-shadow: 0 0 0 3px rgba(201, 29, 29, 0.08);
+}
+
+
+/* =========================================================
+   PASSWORD
+   ========================================================= */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+
+.toggle-password {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   LOGIN OPTIONS
+   ========================================================= */
+
+.login-options {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    font-size: 13px;
+}
+
+
+.login-options label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #666666;
+}
+
+
+.login-options input {
+    width: 15px;
+    height: 15px;
+}
+
+
+.login-options a {
+    color: #4d8ed8;
+
+    text-decoration: none;
+}
+
+
+.login-options a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #c91d1d;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.login-button:hover {
+    background: #a80000;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.login-divider {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 25px 0;
+}
+
+
+.login-divider span {
+    flex: 1;
+
+    height: 1px;
+
+    background: #dddddd;
+}
+
+
+.login-divider b {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+
+    color: #777777;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   REGISTER
+   ========================================================= */
+
+.register-link {
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border: 1px solid #c91d1d;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    color: #777777;
+}
+
+
+.register-link a {
+    color: #c91d1d;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   LEFT SIDE - WELCOME IMAGE
+   ========================================================= */
+
+.login-content {
+    flex: 1;
+
+    min-height: 540px;
+
+    overflow: hidden;
+
+    display: flex;
+}
+
+
+.welcome-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error-message {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #c91d1d;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-menu {
+        gap: 18px;
+    }
+
+    .login-container {
+        max-width: 850px;
+    }
+
+    .login-right {
+        padding: 40px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: auto;
+        padding: 18px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .login-page {
+        padding: 25px 15px;
+    }
+
+    .login-container {
+        flex-direction: column;
+
+        min-height: auto;
+    }
+
+    .login-content {
+        order: 1;
+        min-height: 300px;
+    }
+
+    .login-right {
+        order: 2;
+        padding: 35px 25px;
+    }
+}
+
+/* =========================
+   NAVIGATION LOGIN BUTTON
+   ========================= */
+
+.nav-menu .login-link:hover {
+    color: #ffffff;
+    background: #c91c20;
+}
+
+.nav-menu .login-link.active {
+    color: #ffffff;
+    background: #c91c20;
+    text-decoration: none;
+}
+
+/* =========================================
+   LOGIN PAGE - SCREEN FIT
+   ========================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.site-wrapper {
+    min-height: 100vh;
+}
+
+/* =========================================
+   COMPACT NAVBAR
+   ========================================= */
+
+.navbar {
+    height: 68px;
+    min-height: 68px;
+    padding: 0 45px;
+    box-sizing: border-box;
+}
+
+.logo-image {
+    width: 46px;
+    height: 46px;
+}
+
+.logo-text {
+    font-size: 27px;
+}
+
+.nav-menu {
+    gap: 34px;
+}
+
+.nav-link {
+    font-size: 14px;
+}
+
+/* Dark mode button */
+.theme-toggle {
+    width: 46px;
+    height: 25px;
+    min-width: 46px;
+    padding: 0;
+    border: none;
+    border-radius: 30px;
+    background: #b9bec7;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: background 0.25s ease;
+}
+
+.theme-toggle span {
+    position: absolute;
+    left: 3px;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: transform 0.25s ease;
+}
+
+body.dark-mode .theme-toggle {
+    background: #4b5563;
+}
+
+body.dark-mode .theme-toggle span {
+    transform: translateX(21px);
+}
+
+/* =========================================
+   LOGIN AREA - FIT SCREEN
+   ========================================= */
+
+.login-page {
+    min-height: calc(100vh - 68px);
+    height: calc(100vh - 68px);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: min(1000px, 92vw);
+    height: min(540px, calc(100vh - 108px));
+    min-height: 480px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+/* =========================================================
+   LIFELINK LOGIN PAGE - FINAL DESIGN
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HEADER - SMALLER
+   ========================================================= */
+
+.navbar {
+    height: 62px;
+    min-height: 62px;
+    padding: 0 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    position: relative;
+    z-index: 20;
+}
+
+
+/* LOGO */
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-image {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* NAVIGATION */
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    margin-left: auto;
+    margin-right: 35px;
+}
+
+.nav-link {
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   REMOVE LOGIN BUTTON FROM NAVBAR
+   ========================================================= */
+
+.nav-menu .login-link {
+    display: none !important;
+}
+
+
+/* =========================================================
+   DARK MODE TOGGLE
+   ========================================================= */
+
+.theme-toggle {
+    width: 44px;
+    height: 24px;
+
+    border: none;
+    border-radius: 20px;
+
+    background: #c4c7cc;
+
+    position: relative;
+
+    padding: 0;
+    margin: 0;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    transition: background 0.25s ease;
+}
+
+.theme-toggle span {
+    position: absolute;
+
+    left: 3px;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    transition: transform 0.25s ease;
+}
+
+
+/* DARK TOGGLE */
+
+body.dark-mode .theme-toggle {
+    background: #505866;
+}
+
+body.dark-mode .theme-toggle span {
+    transform: translateX(20px);
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.background-image {
+    position: fixed !important;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: -2;
+
+    overflow: hidden;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   DARK MODE BACKGROUND IMAGE
+   ========================================================= */
+
+body.dark-mode .background-image img {
+    filter:
+        brightness(0.30)
+        contrast(1.05)
+        saturate(0.65);
+}
+
+body.dark-mode .background-image {
+    background: #10151c;
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
+.login-page {
+    width: 100%;
+
+    height: calc(100vh - 62px);
+    min-height: 0;
+
+    padding: 14px 25px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.login-container {
+    width: min(960px, 94vw);
+
+    height: min(500px, calc(100vh - 92px));
+
+    min-height: 0;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+   ========================================================= */
+
+.login-content {
+    width: 47%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.welcome-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.login-right {
+    width: 53%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 42px 55px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   LOGIN TITLE - CENTER
+   ========================================================= */
+
+.login-title {
+    text-align: center;
+
+    margin: 0 0 8px;
+
+    font-size: 38px;
+    font-weight: 700;
+}
+
+
+/* SUBTITLE */
+
+.login-right > p {
+    text-align: center;
+
+    margin: 0 0 28px;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.login-form {
+    width: 100%;
+}
+
+
+/* FORM GROUP */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* INPUT */
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+
+    height: 44px;
+
+    box-sizing: border-box;
+
+    border-radius: 9px;
+
+    padding: 0 15px;
+
+    font-size: 14px;
+}
+
+
+/* PASSWORD */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px !important;
+}
+
+.toggle-password {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: transparent;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   LOGIN OPTIONS
+   ========================================================= */
+
+.login-options {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 5px 0 20px;
+
+    font-size: 13px;
+}
+
+.login-options a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-button {
+    width: 100%;
+
+    height: 46px;
+
+    border: none;
+    border-radius: 9px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.login-divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 20px 0;
+}
+
+.login-divider span {
+    flex: 1;
+    height: 1px;
+}
+
+.login-divider b {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   REGISTER
+   ========================================================= */
+
+.register-link {
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.register-link a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DARK MODE - CLEAN
+   ========================================================= */
+
+body.dark-mode {
+    background: #111820;
+    color: #f1f5f9;
+}
+
+
+/* HEADER */
+
+body.dark-mode .navbar {
+    background: #182230;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.30);
+}
+
+body.dark-mode .logo-text {
+    color: #f8fafc;
+}
+
+body.dark-mode .nav-link {
+    color: #e2e8f0;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #ff5b61;
+}
+
+
+/* LOGIN CARD */
+
+body.dark-mode .login-container {
+    background: #202a36;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.45);
+}
+
+
+/* LOGIN SIDE */
+
+body.dark-mode .login-right {
+    background: #202a36;
+    color: #f1f5f9;
+}
+
+
+/* TITLE */
+
+body.dark-mode .login-title {
+    color: #ff5058;
+}
+
+
+/* SUBTITLE */
+
+body.dark-mode .login-right > p {
+    color: #b9c3cf;
+}
+
+
+/* LABEL */
+
+body.dark-mode .form-group label {
+    color: #f1f5f9;
+}
+
+
+/* INPUT */
+
+body.dark-mode .form-group input[type="text"],
+body.dark-mode .form-group input[type="password"] {
+    background: #293647;
+
+    border: 1px solid #45566b;
+
+    color: #ffffff;
+}
+
+body.dark-mode .form-group input::placeholder {
+    color: #9aa7b7;
+}
+
+body.dark-mode .form-group input:focus {
+    border-color: #ff5058;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 80, 88, 0.15);
+}
+
+
+/* OPTIONS */
+
+body.dark-mode .login-options {
+    color: #dbe2ea;
+}
+
+body.dark-mode .login-options a {
+    color: #ff6970;
+}
+
+
+/* LOGIN BUTTON */
+
+body.dark-mode .login-button {
+    background: #d9232a;
+    color: white;
+}
+
+body.dark-mode .login-button:hover {
+    background: #ef3037;
+}
+
+
+/* DIVIDER */
+
+body.dark-mode .login-divider span {
+    background: #46515f;
+}
+
+body.dark-mode .login-divider b {
+    background: #202a36;
+    color: #cbd5e1;
+}
+
+
+/* REGISTER */
+
+body.dark-mode .register-link {
+    color: #b9c3cf;
+}
+
+body.dark-mode .register-link a {
+    color: #ff6068;
+}
+
+
+/* PASSWORD BUTTON */
+
+body.dark-mode .toggle-password {
+    color: #dbe2ea;
+}
+
+
+/* =========================================================
+   SMALL SCREEN HEIGHT
+   ========================================================= */
+
+@media (max-height: 700px) {
+
+    .navbar {
+        height: 56px;
+        min-height: 56px;
+        padding: 0 30px;
+    }
+
+    .logo-image {
+        width: 38px;
+        height: 38px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+
+    .nav-menu {
+        gap: 25px;
+        margin-right: 25px;
+    }
+
+    .nav-link {
+        font-size: 12px;
+    }
+
+    .theme-toggle {
+        width: 40px;
+        height: 22px;
+    }
+
+    .theme-toggle span {
+        width: 16px;
+        height: 16px;
+    }
+
+    body.dark-mode .theme-toggle span {
+        transform: translateX(18px);
+    }
+
+    .login-page {
+        height: calc(100vh - 56px);
+        padding: 10px 20px;
+    }
+
+    .login-container {
+        height: calc(100vh - 76px);
+        max-height: 510px;
+    }
+
+    .login-right {
+        padding: 30px 45px;
+    }
+
+    .login-title {
+        font-size: 32px;
+        margin-bottom: 5px;
+    }
+
+    .login-right > p {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 13px;
+    }
+
+    .login-options {
+        margin-bottom: 15px;
+    }
+
+    .login-divider {
+        margin: 14px 0;
+    }
+}
+
+
+/* =========================================================
+   WIDTH
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-menu {
+        gap: 15px;
+        margin-right: 15px;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
+
+    .login-container {
+        width: 96vw;
+    }
+
+    .login-right {
+        padding: 30px;
+    }
+}
+
+/* =========================================================
+   DARK MODE - PROFESSIONAL NAVY DESIGN
+   ADD THIS AT THE VERY END
+========================================================= */
+
+/* MAIN PAGE BACKGROUND */
+body.dark-mode {
+    background: #111923;
+    color: #f1f5f9;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+body.dark-mode .navbar {
+    background: #182230;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .logo-text {
+    color: #f8fafc;
+}
+
+body.dark-mode .nav-link {
+    color: #e8edf3;
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link.active {
+    color: #ff5b61;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
+
+body.dark-mode .background-image {
+    background: #111923;
+}
+
+body.dark-mode .background-image img {
+    filter:
+        brightness(0.28)
+        contrast(1.08)
+        saturate(0.60);
+}
+
+/* Dark navy overlay */
+body.dark-mode .background-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 18, 29, 0.48);
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+body.dark-mode .login-page {
+    background: transparent;
+}
+
+
+/* =========================================================
+   LOGIN CONTAINER
+========================================================= */
+
+body.dark-mode .login-container {
+    background: #182230;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   RIGHT LOGIN SIDE
+========================================================= */
+
+body.dark-mode .login-right {
+    background: #182230;
+    color: #f1f5f9;
+}
+
+
+/* =========================================================
+   LOGIN TITLE - CENTERED
+========================================================= */
+
+body.dark-mode .login-title {
+    text-align: center;
+    width: 100%;
+    color: #ff5058;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* If your HTML uses h1 instead of .login-title */
+body.dark-mode .login-right h1 {
+    text-align: center;
+    width: 100%;
+    color: #ff5058;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   SUBTITLE - CENTERED
+========================================================= */
+
+body.dark-mode .login-right > p {
+    text-align: center;
+    color: #b9c3cf;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+body.dark-mode .form-group label {
+    color: #f1f5f9;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+body.dark-mode .form-group input[type="text"],
+body.dark-mode .form-group input[type="password"] {
+    background: #202c3b;
+
+    border: 1px solid #405168;
+
+    color: #ffffff;
+}
+
+body.dark-mode .form-group input::placeholder {
+    color: #9ba8b8;
+}
+
+body.dark-mode .form-group input:focus {
+    border-color: #ff5058;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 80, 88, 0.14);
+}
+
+
+/* =========================================================
+   REMEMBER ME / FORGOT PASSWORD
+========================================================= */
+
+body.dark-mode .login-options {
+    color: #dce4ed;
+}
+
+body.dark-mode .login-options label {
+    color: #dce4ed;
+}
+
+body.dark-mode .login-options a {
+    color: #ff6970;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+body.dark-mode .login-button {
+    background: #d9232a;
+    color: #ffffff;
+}
+
+body.dark-mode .login-button:hover {
+    background: #ef3037;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+body.dark-mode .login-divider span {
+    background: #465466;
+}
+
+body.dark-mode .login-divider b {
+    background: #182230;
+    border-color: #465466;
+    color: #d5dde7;
+}
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+body.dark-mode .register-link {
+    color: #b9c3cf;
+    border-color: #3f5064;
+}
+
+body.dark-mode .register-link a {
+    color: #ff6068;
+}
+
+
+/* =========================================================
+   PASSWORD EYE
+========================================================= */
+
+body.dark-mode .toggle-password {
+    color: #dbe4ee;
+}
+
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+body.dark-mode .theme-toggle {
+    background: #4b5563;
+}
+
+body.dark-mode .theme-toggle span {
+    transform: translateX(20px);
+}
+
+/* =========================================================
+   ADMIN LOGIN LINK
+   ========================================================= */
+
+.admin-login-link {
+    width: 100%;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #777777;
+}
+
+.admin-login-link a {
+    margin-left: 5px;
+    color: #c91d1d;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.admin-login-link a:hover {
+    color: #a80000;
+    text-decoration: underline;
+}
+
+/* DARK MODE */
+
+body.dark-mode .admin-login-link {
+    color: #b9c3cf;
+}
+
+body.dark-mode .admin-login-link a {
+    color: #ff6068;
+}
+
+body.dark-mode .admin-login-link a:hover {
+    color: #ff8086;
+}
+
+/* =========================================================
+   REGISTER + ADMIN LOGIN - PROFESSIONAL STYLE
+   ========================================================= */
+
+/* REGISTER */
+.register-link {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 14px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    color: #666666;
+    font-size: 13px;
+    text-align: center;
+
+    transition: all 0.2s ease;
+}
+
+.register-link:hover {
+    border-color: #c91d1d;
+    background: #fff7f7;
+}
+
+.register-link span {
+    color: #666666;
+}
+
+.register-link a {
+    margin-left: 4px;
+
+    color: #c91d1d;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.register-link a:hover {
+    color: #a80000;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+   ========================================================= */
+
+.admin-login-link {
+    width: 100%;
+    margin-top: 12px;
+    padding: 11px 14px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #777777;
+    font-size: 13px;
+    text-align: center;
+
+    transition: all 0.2s ease;
+}
+
+.admin-login-link:hover {
+    border-color: #c91d1d;
+    background: #fff7f7;
+}
+
+.admin-login-link span {
+    color: #666666;
+}
+
+.admin-login-link a {
+    margin-left: 3px;
+
+    color: #8b0000;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.admin-login-link a:hover {
+    color: #c91d1d;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+body.dark-mode .register-link {
+    background: #202c3b;
+    border-color: #405168;
+    color: #b9c3cf;
+}
+
+body.dark-mode .register-link span {
+    color: #b9c3cf;
+}
+
+body.dark-mode .register-link a {
+    color: #ff6068;
+}
+
+body.dark-mode .register-link:hover {
+    background: #263445;
+    border-color: #ff5058;
+}
+
+
+body.dark-mode .admin-login-link {
+    background: #202c3b;
+    border-color: #405168;
+    color: #b9c3cf;
+}
+
+body.dark-mode .admin-login-link span {
+    color: #b9c3cf;
+}
+
+body.dark-mode .admin-login-link a {
+    color: #ff6068;
+}
+
+body.dark-mode .admin-login-link:hover {
+    background: #263445;
+    border-color: #ff5058;
+}
+
+body.dark-mode .admin-login-link a:hover {
+    color: #ff8086;
+}
+
+/* =========================================================
+   ADMIN LOGIN - PROFESSIONAL CARD
+   ========================================================= */
+
+.admin-login-link {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 12px;
+    padding: 11px 14px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    color: #666666;
+    font-size: 13px;
+    text-align: center;
+
+    transition: all 0.2s ease;
+}
+
+.admin-login-link:hover {
+    border-color: #c91d1d;
+    background: #fff7f7;
+}
+
+.admin-login-link span {
+    color: #666666;
+}
+
+.admin-login-link a {
+    margin-left: 4px;
+
+    color: #c91d1d;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.admin-login-link a:hover {
+    color: #a80000;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ADMIN LOGIN - DARK MODE
+   ========================================================= */
+
+body.dark-mode .admin-login-link {
+    background: #202c3b;
+    border-color: #405168;
+    color: #b9c3cf;
+}
+
+body.dark-mode .admin-login-link span {
+    color: #b9c3cf;
+}
+
+body.dark-mode .admin-login-link a {
+    color: #ff6068;
+}
+
+body.dark-mode .admin-login-link:hover {
+    background: #263445;
+    border-color: #ff5058;
+}
+
+body.dark-mode .admin-login-link a:hover {
+    color: #ff8086;
+}
+
+/* =========================================================
+   COMPACT LOGIN - NO INTERNAL SCROLL
+   ========================================================= */
+
+.login-container {
+    height: min(500px, calc(100vh - 82px));
+}
+
+.login-right {
+    padding: 30px 45px;
+    overflow-y: hidden;
+}
+
+.login-title {
+    font-size: 34px;
+    margin-bottom: 5px;
+}
+
+.login-right > p {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    height: 40px;
+}
+
+.login-options {
+    margin: 3px 0 14px;
+}
+
+.login-button {
+    height: 42px;
+}
+
+.login-divider {
+    margin: 13px 0;
+}
+
+.login-divider b {
+    width: 28px;
+    height: 28px;
+}
+
+.register-link,
+.admin-login-link {
+    min-height: 40px;
+    padding: 8px 12px;
+}
+
+.admin-login-link {
+    margin-top: 8px;
+}
+
+/* ===========================================
+   LIFELINK LOGIN FONT
+   Same font as homepage
+=========================================== */
+
+.login-page,
+.login-page *,
+.login-container,
+.login-container * {
+    font-family: 'Poppins', sans-serif;
+}

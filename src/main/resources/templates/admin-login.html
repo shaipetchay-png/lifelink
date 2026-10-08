@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <title>LifeLink | Admin Login</title>
+
+    <!-- SAME CSS AS DONOR LOGIN -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+
+    <!-- Admin-specific small adjustments -->
+    <style>
+        /* =========================================
+           ADMIN LOGIN
+           Same design as donor login
+           ========================================= */
+
+        .admin-label {
+            text-align: center;
+            margin: -2px 0 24px;
+            color: #c91d1d;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .admin-login-link {
+            width: 100%;
+            margin-top: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: #777777;
+        }
+
+        .admin-login-link a {
+            margin-left: 5px;
+            color: #c91d1d;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .admin-login-link a:hover {
+            color: #a80000;
+            text-decoration: underline;
+        }
+
+        /* ADMIN ERROR */
+
+        .admin-error {
+            width: 100%;
+            margin-bottom: 16px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+
+            border-radius: 8px;
+
+            background: #ffe5e5;
+            border: 1px solid #f3b7b7;
+
+            color: #c91d1d;
+
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* DARK MODE */
+
+        body.dark-mode .admin-label {
+            color: #ff6068;
+        }
+
+        body.dark-mode .admin-login-link {
+            color: #b9c3cf;
+        }
+
+        body.dark-mode .admin-login-link a {
+            color: #ff6068;
+        }
+
+        body.dark-mode .admin-login-link a:hover {
+            color: #ff8086;
+        }
+
+        body.dark-mode .admin-error {
+            background: #352329;
+            border-color: #68333a;
+            color: #ff858b;
+        }
+    </style>
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+
+<body>
+
+    <!-- =========================================
+         SAME BACKGROUND AS DONOR LOGIN
+         ========================================= -->
+
+    <div class="background-image">
+
+        <img
+            src="/images/lifelink-background.jpg"
+            alt="LifeLink Background"
+        >
+
+    </div>
+
+
+    <div class="site-wrapper">
+
+        <!-- =========================================
+             SAME NAVBAR AS DONOR LOGIN
+             ========================================= -->
+
+        <header class="navbar">
+
+            <a href="/" class="logo-link">
+
+                <img
+                    src="/images/hero.jpg"
+                    alt="LifeLink Blood Logo"
+                    class="logo-image"
+                >
+
+                <span class="logo-text">
+                    LifeLink
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu">
+
+                <a href="/" class="nav-link">
+                    HOME
+                </a>
+
+                <a href="/#about" class="nav-link">
+                    ABOUT
+                </a>
+
+                <a href="/#features" class="nav-link">
+                    FEATURES
+                </a>
+
+                <a href="/#contact" class="nav-link">
+                    CONTACT
+                </a>
+
+            </nav>
+
+
+            <!-- SAME DARK MODE BUTTON -->
+
+            <button
+                class="theme-toggle"
+                type="button"
+                aria-label="Toggle theme"
+            >
+                <span></span>
+            </button>
+
+        </header>
+
+
+        <!-- =========================================
+             ADMIN LOGIN PAGE
+             ========================================= -->
+
+        <main class="login-page">
+
+            <section class="login-container">
+
+
+                <!-- =================================
+                     WELCOME IMAGE
+                     SAME AS DONOR LOGIN
+                     ================================= -->
+
+                <div class="login-content">
+
+                    <img
+                        src="/images/welcome.jpg"
+                        alt="Welcome to LifeLink"
+                        class="welcome-image"
+                    >
+
+                </div>
+
+
+                <!-- =================================
+                     ADMIN LOGIN FORM
+                     ================================= -->
+
+                <div class="login-right">
+
+                    <h1 class="login-title">
+                        Admin Login
+                    </h1>
+
+
+                    <p>
+                        Access the LifeLink administration panel.
+                    </p>
+
+
+                    <div class="admin-label">
+                        Administrator Access
+                    </div>
+
+
+                    <!-- ERROR MESSAGE -->
+
+                    <div
+                        th:if="${error}"
+                        class="admin-error"
+                        th:text="${error}">
+                    </div>
+
+
+                    <!-- ADMIN LOGIN FORM -->
+
+                    <form
+                        class="login-form"
+                        action="/admin-login"
+                        method="post"
+                    >
+
+                        <!-- USERNAME -->
+
+                        <div class="form-group">
+
+                            <label for="username">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Enter your admin username"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    id="toggle-password"
+                                    class="toggle-password"
+                                    aria-label="Show password"
+                                >
+                                    👁
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="login-button"
+                        >
+                            ➜ &nbsp; LOGIN AS ADMIN
+                        </button>
+
+
+                        <!-- DIVIDER -->
+
+                        <div class="login-divider">
+
+                            <span></span>
+
+                            <b>or</b>
+
+                            <span></span>
+
+                        </div>
+
+
+                        <!-- DONOR LOGIN -->
+
+                        <div class="admin-login-link">
+
+                            <span>
+                                Are you a donor?
+                            </span>
+
+                            <a href="/login">
+                                Donor Login →
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- SAME SCRIPTS -->
+
+    <script src="/js/login.js"></script>
+    <script src="/js/theme.js"></script>
+
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+
+</html>

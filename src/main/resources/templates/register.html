@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LifeLink | Register</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        /* =====================================================
+           LIFE LINK - REGISTRATION PAGE
+           ===================================================== */
+
+        :root {
+            --primary: #b30000;
+            --primary-dark: #8f0000;
+            --primary-light: #d71920;
+
+            --background: #f4f8fb;
+            --card: #ffffff;
+            --input: #ffffff;
+
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #dce3e9;
+
+            --shadow: 0 18px 50px rgba(25, 45, 70, 0.10);
+
+            --transition: 0.25s ease;
+        }
+
+        /* ================= DARK MODE ================= */
+
+        body.dark-mode {
+            --background: #101419;
+            --card: #181e25;
+            --input: #202730;
+
+            --text: #f3f4f6;
+            --text-secondary: #aeb7c2;
+            --border: #343d48;
+
+            --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        /* ================= RESET ================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(255, 245, 245, 0.72),
+                    rgba(255, 245, 245, 0.72)
+                ),
+                url("/images/lifelink-background.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+
+            color: var(--text);
+            min-height: 100vh;
+
+            transition:
+                background var(--transition),
+                color var(--transition);
+        }
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            transition:
+                background var(--transition),
+                border-color var(--transition);
+        }
+
+        /* ================= LOGO ================= */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            text-decoration: none;
+            color: var(--text);
+
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--primary);
+            color: white;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        /* ================= TOP ACTIONS ================= */
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* ================= THEME BUTTON ================= */
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid var(--border);
+            border-radius: 50%;
+
+            background: transparent;
+            color: var(--text);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: all var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        /* ================= LOGIN LINK ================= */
+
+        .login-top {
+            text-decoration: none;
+            color: var(--primary);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: color var(--transition);
+        }
+
+        .login-top:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ================= MAIN ================= */
+
+        .page-wrapper {
+            width: 100%;
+            min-height: calc(100vh - 72px);
+
+            padding: 45px 20px 60px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* ================= PAGE INTRO ================= */
+
+        .page-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-intro .icon {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(179, 0, 0, 0.10);
+            color: var(--primary);
+
+            border-radius: 16px;
+
+            font-size: 24px;
+        }
+
+        .page-intro h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            margin-bottom: 7px;
+        }
+
+        .page-intro p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ================= CARD ================= */
+
+        .register-card {
+            background: rgba(255, 255, 255, 0.94);
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+
+            transition:
+                background var(--transition),
+                border-color var(--transition),
+                box-shadow var(--transition);
+        }
+
+        /* ================= CARD HEADER ================= */
+
+        .card-header {
+            padding: 22px 32px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(179, 0, 0, 0.10);
+            color: var(--primary);
+
+            font-size: 15px;
+        }
+
+        .card-header h2 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-header p {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-body {
+            padding: 32px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--primary);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+        .section-title i {
+            font-size: 13px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+
+            color: var(--text);
+
+            margin-bottom: 7px;
+        }
+
+        .required {
+            color: var(--primary);
+        }
+
+        .form-control,
+        .form-select {
+            width: 100%;
+            height: 45px;
+
+            padding: 0 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            background: var(--input);
+            color: var(--text);
+
+            outline: none;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+
+            transition:
+                border-color var(--transition),
+                box-shadow var(--transition),
+                background var(--transition);
+        }
+
+        .form-control::placeholder {
+            color: #9aa3ad;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+
+            box-shadow: 0 0 0 3px rgba(179, 0, 0, 0.10);
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        textarea.form-control {
+            height: 85px;
+            padding-top: 12px;
+            resize: vertical;
+        }
+
+        /* ================= PASSWORD HINT ================= */
+
+        .field-hint {
+            margin-top: 5px;
+
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* ================= DIVIDER ================= */
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+
+            margin: 5px 0 30px;
+        }
+
+        /* ================= BUTTON AREA ================= */
+
+        .form-footer {
+            margin-top: 32px;
+            padding-top: 25px;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .login-message {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .login-message a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-message a:hover {
+            text-decoration: underline;
+        }
+
+        .button-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            height: 44px;
+
+            padding: 0 22px;
+
+            border-radius: 9px;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all var(--transition);
+        }
+
+        .btn-secondary {
+            background: transparent;
+
+            color: var(--text);
+
+            border: 1px solid var(--border);
+
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(179, 0, 0, 0.20);
+        }
+
+        /* ================= FOOTNOTE ================= */
+
+        .security-note {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        .security-note i {
+            color: var(--primary);
+            margin-right: 4px;
+        }
+
+
+        /* ================= TERMS AND CONDITIONS ================= */
+
+        .terms-container {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        .terms-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.55;
+            cursor: pointer;
+        }
+
+        .terms-label input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            margin: 2px 0 0;
+            flex-shrink: 0;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .terms-label a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .terms-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= LEGAL MODALS ================= */
+
+        .legal-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .legal-modal.active {
+            display: flex;
+        }
+
+        .legal-modal-content {
+            width: 100%;
+            max-width: 760px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.30);
+        }
+
+        .legal-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px 25px;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legal-modal-header h2 {
+            margin: 0;
+            color: var(--text);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .legal-modal-header p {
+            margin: 4px 0 0;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .legal-close {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .legal-close:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .legal-modal-body {
+            padding: 28px;
+            overflow-y: auto;
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
+        .legal-modal-body h3 {
+            margin: 22px 0 8px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .legal-modal-body h3:first-child {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 17px;
+        }
+
+        .legal-modal-body p {
+            margin-bottom: 13px;
+        }
+
+        .legal-modal-body ul {
+            margin: 5px 0 16px;
+            padding-left: 24px;
+        }
+
+        .legal-modal-body li {
+            margin-bottom: 5px;
+        }
+
+        .legal-contact {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background: var(--background);
+            border-top: 1px solid var(--border);
+        }
+
+        .legal-close-button {
+            border: none;
+            padding: 9px 24px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .legal-close-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .legal-modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .legal-modal-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .legal-modal-body::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        body.dark-mode .legal-modal-body::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        @media (max-width: 560px) {
+            .terms-label {
+                font-size: 10px;
+            }
+
+            .legal-modal {
+                padding: 10px;
+            }
+
+            .legal-modal-content {
+                max-height: 92vh;
+                border-radius: 14px;
+            }
+
+            .legal-modal-header {
+                padding: 16px 18px;
+            }
+
+            .legal-modal-header h2 {
+                font-size: 18px;
+            }
+
+            .legal-modal-body {
+                padding: 20px;
+                font-size: 11px;
+            }
+
+            .legal-modal-footer {
+                padding: 12px 18px;
+            }
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .button-group {
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 560px) {
+
+            .top-bar {
+                padding: 0 20px;
+            }
+
+            .login-top {
+                display: none;
+            }
+
+            .page-wrapper {
+                padding: 30px 12px 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-body {
+                padding: 23px 18px;
+            }
+
+            .card-header {
+                padding: 20px 18px;
+            }
+
+            .button-group {
+                width: 100%;
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+
+        /* =====================================================
+           FINAL PROFESSIONAL DARK MODE OVERRIDES
+           LifeLink Healthcare Theme
+        ===================================================== */
+
+        body.dark-mode {
+            --background: #0B1220;
+            --card: #172033;
+            --input: #0F172A;
+            --text: #F8FAFC;
+            --text-secondary: #A7B2C3;
+            --border: #334155;
+            --shadow: 0 20px 55px rgba(0, 0, 0, 0.48);
+
+            /* Darken the actual hospital background image */
+            background:
+                linear-gradient(
+                    rgba(7, 15, 28, 0.88),
+                    rgba(7, 15, 28, 0.94)
+                ),
+                url("/images/lifelink-background.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #F8FAFC;
+        }
+
+        body.dark-mode .top-bar {
+            background: #111827 !important;
+            border-bottom-color: #263244 !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.30);
+        }
+
+        body.dark-mode .logo {
+            color: #F8FAFC !important;
+        }
+
+        body.dark-mode .logo span,
+        body.dark-mode .login-top {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .login-top:hover {
+            color: #FB7185 !important;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #172033 !important;
+            color: #E2E8F0 !important;
+            border-color: #475569 !important;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: #1E293B !important;
+            color: #F87171 !important;
+            border-color: #C8102E !important;
+        }
+
+        body.dark-mode .page-wrapper {
+            background: transparent !important;
+        }
+
+        body.dark-mode .page-intro h1 {
+            color: #F8FAFC !important;
+        }
+
+        body.dark-mode .page-intro p {
+            color: #A7B2C3 !important;
+        }
+
+        body.dark-mode .page-intro .icon {
+            background: rgba(200, 16, 46, 0.16) !important;
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .register-card {
+            background: #172033 !important;
+            border-color: #334155 !important;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.48) !important;
+        }
+
+        body.dark-mode .card-header {
+            background: #172033 !important;
+            border-bottom-color: #334155 !important;
+        }
+
+        body.dark-mode .card-header h2 {
+            color: #F8FAFC !important;
+        }
+
+        body.dark-mode .card-header p {
+            color: #A7B2C3 !important;
+        }
+
+        body.dark-mode .card-header-icon {
+            background: rgba(200, 16, 46, 0.16) !important;
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .section-title {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .form-label {
+            color: #E2E8F0 !important;
+        }
+
+        body.dark-mode .required {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .form-control,
+        body.dark-mode .form-select {
+            background: #0F172A !important;
+            color: #F8FAFC !important;
+            border-color: #3B4759 !important;
+            box-shadow: none !important;
+        }
+
+        body.dark-mode .form-control:hover,
+        body.dark-mode .form-select:hover {
+            background: #111B2D !important;
+            border-color: #64748B !important;
+        }
+
+        body.dark-mode .form-control:focus,
+        body.dark-mode .form-select:focus {
+            background: #111B2D !important;
+            color: #FFFFFF !important;
+            border-color: #C8102E !important;
+            box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.16) !important;
+        }
+
+        body.dark-mode .form-control::placeholder {
+            color: #718096 !important;
+            opacity: 1;
+        }
+
+        body.dark-mode .form-select,
+        body.dark-mode select,
+        body.dark-mode input[type="date"] {
+            color-scheme: dark;
+        }
+
+        body.dark-mode .field-hint,
+        body.dark-mode .login-message,
+        body.dark-mode .security-note {
+            color: #8794A5 !important;
+        }
+
+        body.dark-mode .login-message a {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .security-note i {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .divider,
+        body.dark-mode .form-footer {
+            border-color: #334155 !important;
+        }
+
+        body.dark-mode .divider {
+            background: #334155 !important;
+        }
+
+        body.dark-mode .btn-secondary {
+            background: transparent !important;
+            color: #E2E8F0 !important;
+            border-color: #475569 !important;
+        }
+
+        body.dark-mode .btn-secondary:hover {
+            background: #243044 !important;
+            color: #FFFFFF !important;
+            border-color: #C8102E !important;
+        }
+
+        body.dark-mode .btn-primary {
+            background: #C8102E !important;
+            color: #FFFFFF !important;
+            border-color: #C8102E !important;
+            box-shadow: 0 5px 15px rgba(200, 16, 46, 0.20) !important;
+        }
+
+        body.dark-mode .btn-primary:hover {
+            background: #A80F27 !important;
+            border-color: #A80F27 !important;
+            box-shadow: 0 7px 18px rgba(200, 16, 46, 0.28) !important;
+        }
+
+        /* Terms & Privacy */
+        body.dark-mode .terms-label {
+            color: #CBD5E1 !important;
+        }
+
+        body.dark-mode .terms-label a {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .terms-label a:hover {
+            color: #FB7185 !important;
+        }
+
+        body.dark-mode .terms-label input[type="checkbox"] {
+            accent-color: #C8102E !important;
+        }
+
+        /* Legal modal overlay */
+        body.dark-mode .legal-modal {
+            background: rgba(2, 6, 23, 0.82) !important;
+        }
+
+        body.dark-mode .legal-modal-content {
+            background: #172033 !important;
+            border-color: #334155 !important;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.60) !important;
+        }
+
+        body.dark-mode .legal-modal-header {
+            background: #172033 !important;
+            border-bottom-color: #334155 !important;
+        }
+
+        body.dark-mode .legal-modal-header h2 {
+            color: #F8FAFC !important;
+        }
+
+        body.dark-mode .legal-modal-header p {
+            color: #94A3B8 !important;
+        }
+
+        body.dark-mode .legal-close {
+            background: #243044 !important;
+            color: #CBD5E1 !important;
+            border-color: #475569 !important;
+        }
+
+        body.dark-mode .legal-close:hover {
+            background: #334155 !important;
+            color: #F87171 !important;
+            border-color: #C8102E !important;
+        }
+
+        body.dark-mode .legal-modal-body {
+            background: #172033 !important;
+            color: #CBD5E1 !important;
+        }
+
+        body.dark-mode .legal-modal-body h3 {
+            color: #F1F5F9 !important;
+        }
+
+        body.dark-mode .legal-modal-body h3:first-child {
+            color: #F87171 !important;
+        }
+
+        body.dark-mode .legal-contact {
+            border-top-color: #334155 !important;
+        }
+
+        body.dark-mode .legal-modal-footer {
+            background: #111827 !important;
+            border-top-color: #334155 !important;
+        }
+
+        body.dark-mode .legal-close-button {
+            background: #C8102E !important;
+            color: #FFFFFF !important;
+        }
+
+        body.dark-mode .legal-close-button:hover {
+            background: #A80F27 !important;
+        }
+
+        body.dark-mode .legal-modal-body::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+
+        body.dark-mode .legal-modal-body::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        body.dark-mode .legal-modal-body::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+
+        body.dark-mode::-webkit-scrollbar {
+            width: 9px;
+        }
+
+        body.dark-mode::-webkit-scrollbar-track {
+            background: #0B1220;
+        }
+
+        body.dark-mode::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+
+        body.dark-mode::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+
+    </style>
+    <link rel="stylesheet" href="/css/theme-toggle.css?v=20260918">
+</head>
+
+<body>
+
+    <!-- ================= TOP BAR ================= -->
+
+    <header class="top-bar">
+
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+
+            Life<span>Link</span>
+        </a>
+
+        <div class="top-actions">
+
+            <a href="/login" class="login-top">
+                Already have an account?
+            </a>
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Toggle dark mode">
+
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page-wrapper">
+
+        <div class="container">
+
+            <!-- INTRO -->
+
+            <div class="page-intro">
+
+                <div class="icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <h1>Create Your LifeLink Account</h1>
+
+                <p>
+                    Register as a donor and become part of the LifeLink community.
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER CARD -->
+
+            <div class="register-card">
+
+                <!-- CARD HEADER -->
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+
+                    <div>
+                        <h2>Donor Registration</h2>
+
+                        <p>
+                            Please provide your information accurately.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- FORM BODY -->
+
+                <div class="form-body">
+
+                    <form id="registrationForm" method="post" action="/register">
+
+                        <!-- ================= PERSONAL INFORMATION ================= -->
+
+                        <section class="section">
+
+                            <div class="section-title">
+                                <i class="fa-solid fa-user"></i>
+                                Personal Information
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        First Name
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="firstName"
+                                        id="firstName"
+                                        placeholder="Enter first name"
+                                        autocomplete="given-name"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Middle Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="middleName"
+                                        id="middleName"
+                                        placeholder="Enter middle name"
+                                        autocomplete="additional-name">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Last Name
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="lastName"
+                                        id="lastName"
+                                        placeholder="Enter last name"
+                                        autocomplete="family-name"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Birthdate
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="birthdate"
+                                        id="birthdate"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Age
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="age"
+                                        id="age"
+                                        placeholder="Enter age"
+                                        min="18"
+                                        max="65"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Gender
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        name="gender"
+                                        id="gender"
+                                        required>
+
+                                        <option value="">
+                                            Select gender
+                                        </option>
+
+                                        <option value="Male">
+                                            Male
+                                        </option>
+
+                                        <option value="Female">
+                                            Female
+                                        </option>
+
+                                        <option value="Other">
+                                            Other
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Blood Type
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        name="bloodType"
+                                        id="bloodType"
+                                        required>
+
+                                        <option value="">
+                                            Select blood type
+                                        </option>
+
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Contact Number
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        name="contact"
+                                        id="contact"
+                                        placeholder="09XXXXXXXXX"
+                                        maxlength="11"
+                                        autocomplete="tel"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Email Address
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        name="email"
+                                        id="email"
+                                        placeholder="example@email.com"
+                                        autocomplete="email"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label class="form-label">
+                                        Complete Address
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <textarea
+                                        class="form-control"
+                                        name="address"
+                                        id="address"
+                                        placeholder="Enter your complete address"
+                                        required></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <div class="divider"></div>
+
+
+                        <!-- ================= ACCOUNT INFORMATION ================= -->
+
+                        <section class="section">
+
+                            <div class="section-title">
+                                <i class="fa-solid fa-lock"></i>
+                                Account Information
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Username
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="username"
+                                        id="username"
+                                        placeholder="Create a username"
+                                        autocomplete="username"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Password
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        id="password"
+                                        placeholder="Create a password"
+                                        minlength="8"
+                                        autocomplete="new-password"
+                                        required>
+
+                                    <span class="field-hint">
+                                        Minimum of 8 characters.
+                                    </span>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        Confirm Password
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        name="confirmPassword"
+                                        id="confirmPassword"
+                                        placeholder="Re-enter your password"
+                                        minlength="8"
+                                        autocomplete="new-password"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+
+                        <!-- ================= TERMS AND CONDITIONS ================= -->
+
+                        <div class="terms-container">
+
+                            <label class="terms-label">
+
+                                <input
+                                    type="checkbox"
+                                    id="termsCheckbox"
+                                    name="termsAccepted"
+                                    required>
+
+                                <span>
+                                    I agree to the
+                                    <a href="#" onclick="openTermsModal(event)">
+                                        Terms and Conditions
+                                    </a>
+                                    and
+                                    <a href="#" onclick="openPrivacyModal(event)">
+                                        Privacy Policy
+                                    </a>.
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                        <!-- ================= FOOTER ================= -->
+
+                        <div class="form-footer">
+
+                            <div class="login-message">
+
+                                Already have an account?
+
+                                <a href="/login">
+                                    Login here
+                                </a>
+
+                            </div>
+
+
+                            <div class="button-group">
+
+                                <a
+                                    href="/"
+                                    class="btn btn-secondary">
+
+                                    <i class="fa-solid fa-arrow-left me-2"></i>
+                                    Back
+
+                                </a>
+
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary">
+
+                                    <i class="fa-solid fa-user-plus me-2"></i>
+                                    Create Account
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY NOTE -->
+
+            <div class="security-note">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Your information will be handled securely by LifeLink.
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+    <!-- =========================================================
+         TERMS AND CONDITIONS MODAL
+    ========================================================= -->
+
+    <div id="termsModal" class="legal-modal">
+
+        <div class="legal-modal-content">
+
+            <div class="legal-modal-header">
+                <div>
+                    <h2>Terms and Conditions</h2>
+                    <p>LifeLink Blood Donation Management System</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="legal-close"
+                    onclick="closeTermsModal()"
+                    aria-label="Close">
+                    &times;
+                </button>
+            </div>
+
+            <div class="legal-modal-body">
+
+                <h3>LifeLink Terms and Conditions</h3>
+
+                <p><strong>Effective Date:</strong> August 14, 2026</p>
+
+                <p>Welcome to <strong>LifeLink</strong>, a Blood Donation Management System designed to help manage donor information, donor eligibility, and blood donation records. By creating and using a LifeLink account, you agree to the following Terms and Conditions.</p>
+
+                <h3>1. Use of LifeLink</h3>
+                <p>Users must provide accurate and complete information when creating an account. Users are responsible for keeping their username and password secure and must not share their account with others.</p>
+
+                <h3>2. Donor Information</h3>
+                <p>Users are responsible for providing correct personal and donation-related information. LifeLink may use this information to help track donor eligibility, donation status, and donation history.</p>
+
+                <h3>3. Donor Eligibility</h3>
+                <p>LifeLink may provide or record donor eligibility information. However, the system does not replace professional medical assessment. Final decisions regarding blood donation eligibility must be made by qualified healthcare professionals.</p>
+
+                <h3>4. Acceptable Use</h3>
+                <p>Users must not use LifeLink to provide false information, access another person's account, misuse the system, or attempt to damage or interfere with the system.</p>
+
+                <h3>5. Account Security</h3>
+                <p>Users are responsible for protecting their login information. LifeLink is not responsible for problems caused by users sharing their account credentials.</p>
+
+                <h3>6. System Availability</h3>
+                <p>LifeLink may occasionally be unavailable because of maintenance, updates, technical problems, or other circumstances. We will make reasonable efforts to keep the system available and working properly.</p>
+
+                <h3>7. Changes to These Terms</h3>
+                <p>LifeLink may update these Terms and Conditions when necessary. Changes will be communicated through the system when appropriate.</p>
+
+                <h3>8. Acceptance</h3>
+                <p>By registering for and using LifeLink, you confirm that you have read, understood, and agreed to these Terms and Conditions.</p>
+
+                <p class="legal-contact"><strong>Contact:</strong> LifeLink Administration</p>
+
+            </div>
+
+            <div class="legal-modal-footer">
+                <button type="button" class="legal-close-button" onclick="closeTermsModal()">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         PRIVACY POLICY MODAL
+    ========================================================= -->
+
+    <div id="privacyModal" class="legal-modal">
+
+        <div class="legal-modal-content">
+
+            <div class="legal-modal-header">
+                <div>
+                    <h2>Privacy Policy</h2>
+                    <p>LifeLink Blood Donation Management System</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="legal-close"
+                    onclick="closePrivacyModal()"
+                    aria-label="Close">
+                    &times;
+                </button>
+            </div>
+
+            <div class="legal-modal-body">
+
+                <h3>LifeLink Privacy Policy</h3>
+
+                <p><strong>Effective Date:</strong> August 14, 2026</p>
+
+                <p>LifeLink respects your privacy and is committed to protecting the personal information you provide when using our Blood Donation Management System.</p>
+
+                <h3>1. Information We Collect</h3>
+                <p>LifeLink may collect information such as:</p>
+                <ul>
+                    <li>First and last name</li>
+                    <li>Username</li>
+                    <li>Password</li>
+                    <li>Phone number</li>
+                    <li>Blood type</li>
+                    <li>Donor eligibility information</li>
+                    <li>Donation history</li>
+                    <li>Account and system activity</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>The information collected may be used to:</p>
+                <ul>
+                    <li>Create and manage your LifeLink account</li>
+                    <li>Verify and manage donor information</li>
+                    <li>Track donor eligibility and donation status</li>
+                    <li>Maintain donation records</li>
+                    <li>Improve the LifeLink system</li>
+                    <li>Communicate important account or donation-related information</li>
+                </ul>
+
+                <h3>3. Protection of Your Information</h3>
+                <p>LifeLink takes reasonable steps to protect your personal information from unauthorized access, alteration, disclosure, or misuse.</p>
+
+                <h3>4. Sharing of Information</h3>
+                <p>LifeLink will not intentionally sell your personal information. Information may only be accessed or shared when necessary for authorized system functions, administration, or when required by applicable law.</p>
+
+                <h3>5. Your Responsibility</h3>
+                <p>Users should keep their usernames and passwords private and should immediately report suspected unauthorized access to the system administrator.</p>
+
+                <h3>6. Data Retention</h3>
+                <p>Personal and donation information may be stored for as long as necessary to provide LifeLink's services, maintain accurate records, and meet applicable requirements.</p>
+
+                <h3>7. Changes to This Privacy Policy</h3>
+                <p>This Privacy Policy may be updated when necessary. Users will be informed of significant changes when appropriate.</p>
+
+                <h3>8. Your Consent</h3>
+                <p>By creating a LifeLink account, you acknowledge that you have read and understood this Privacy Policy and consent to the collection and use of your information as described above.</p>
+
+                <p class="legal-contact"><strong>Contact:</strong> LifeLink Administration</p>
+
+            </div>
+
+            <div class="legal-modal-footer">
+                <button type="button" class="legal-close-button" onclick="closePrivacyModal()">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- ================= TERMS / PRIVACY MODAL SCRIPT ================= -->
+    <script>
+
+        function openTermsModal(event) {
+            event.preventDefault();
+
+            const modal = document.getElementById("termsModal");
+
+            if (modal) {
+                modal.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        function closeTermsModal() {
+            const modal = document.getElementById("termsModal");
+
+            if (modal) {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        }
+
+        function openPrivacyModal(event) {
+            event.preventDefault();
+
+            const modal = document.getElementById("privacyModal");
+
+            if (modal) {
+                modal.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        function closePrivacyModal() {
+            const modal = document.getElementById("privacyModal");
+
+            if (modal) {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        }
+
+        window.addEventListener("click", function (event) {
+
+            const termsModal = document.getElementById("termsModal");
+            const privacyModal = document.getElementById("privacyModal");
+
+            if (event.target === termsModal) {
+                closeTermsModal();
+            }
+
+            if (event.target === privacyModal) {
+                closePrivacyModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+
+            if (event.key === "Escape") {
+                closeTermsModal();
+                closePrivacyModal();
+            }
+        });
+
+    </script>
+
+    <!-- ================= DARK MODE SCRIPT ================= -->
+
+    <script>
+
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
+
+        function applyTheme(theme) {
+
+            if (theme === "dark") {
+
+                document.body.classList.add("dark-mode");
+
+                themeIcon.classList.remove("fa-moon");
+                themeIcon.classList.add("fa-sun");
+
+            } else {
+
+                document.body.classList.remove("dark-mode");
+
+                themeIcon.classList.remove("fa-sun");
+                themeIcon.classList.add("fa-moon");
+            }
+        }
+
+
+        // Load saved theme
+
+        const savedTheme = localStorage.getItem("lifelink-theme");
+
+        if (savedTheme) {
+
+            applyTheme(savedTheme);
+
+        } else {
+
+            applyTheme("light");
+
+        }
+
+
+        // Toggle theme
+
+        themeToggle.addEventListener("click", function () {
+
+            const isDark =
+                document.body.classList.contains("dark-mode");
+
+            const newTheme =
+                isDark ? "light" : "dark";
+
+            applyTheme(newTheme);
+
+            localStorage.setItem(
+                "lifelink-theme",
+                newTheme
+            );
+
+        });
+
+    </script>
+
+<script src="/js/theme-toggle.js?v=20260918"></script>
+</body>
+
+</html>

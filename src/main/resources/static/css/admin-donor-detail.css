@@ -1,0 +1,230 @@
+/* =========================================================
+   LIFELINK ADMIN — DONOR DETAIL
+   Dedicated page styling so the detail view cannot fall back
+   to browser-default/raw HTML styling.
+========================================================= */
+:root{
+  --ll-red:#c9181e;
+  --ll-red-dark:#a90d13;
+  --ll-red-soft:#fff1f2;
+  --ll-ink:#251b1c;
+  --ll-muted:#7b6f70;
+  --ll-border:#eadfe0;
+  --ll-card:rgba(255,255,255,.97);
+  --ll-shadow:0 14px 35px rgba(55,20,22,.08);
+}
+
+.admin-detail-page{
+  width:min(1240px,calc(100% - 48px));
+  margin:0 auto;
+  padding:34px 0 60px;
+}
+
+.admin-detail-page *{box-sizing:border-box}
+.admin-detail-page a{text-decoration:none}
+
+.admin-detail-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--ll-red);
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:18px;
+}
+.admin-detail-back:hover{color:var(--ll-red-dark);text-decoration:underline}
+
+.admin-detail-title{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:20px;
+}
+.admin-detail-title .eyebrow{
+  color:var(--ll-red);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.6px;
+  margin-bottom:7px;
+}
+.admin-detail-title h1{
+  margin:0;
+  color:var(--ll-ink);
+  font-size:32px;
+  line-height:1.15;
+  letter-spacing:-.7px;
+}
+.admin-detail-title p{
+  margin:7px 0 0;
+  color:var(--ll-muted);
+  font-size:13px;
+}
+
+.admin-detail-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-detail-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 16px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:700;
+  border:1px solid var(--ll-border);
+  background:#fff;
+  color:#59494a;
+}
+.admin-detail-btn.primary{background:var(--ll-red);border-color:var(--ll-red);color:#fff;box-shadow:0 8px 18px rgba(201,24,30,.16)}
+.admin-detail-btn.primary:hover{background:var(--ll-red-dark)}
+.admin-detail-btn.secondary:hover{border-color:#d4c5c6;background:#fff8f8}
+
+.admin-donor-hero{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:22px 24px;
+  margin-bottom:18px;
+  background:var(--ll-card);
+  border:1px solid var(--ll-border);
+  border-radius:18px;
+  box-shadow:var(--ll-shadow);
+}
+.admin-donor-avatar{
+  width:78px;height:78px;min-width:78px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--ll-red-soft);
+  border:4px solid #ffd9db;
+  color:var(--ll-red);
+  font-size:23px;font-weight:800;
+}
+.admin-donor-hero-copy{flex:1;min-width:0}
+.admin-donor-hero-copy .eyebrow{color:var(--ll-red);font-size:9px;font-weight:800;letter-spacing:1.4px}
+.admin-donor-hero-copy h2{margin:4px 0 2px;color:var(--ll-ink);font-size:25px;line-height:1.2}
+.admin-donor-hero-copy p{margin:0;color:var(--ll-muted);font-size:12px}
+.admin-donor-status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 12px;border-radius:999px;
+  background:#eaf8ee;color:#27783b;
+  font-size:11px;font-weight:700;
+  white-space:nowrap;
+}
+
+.admin-detail-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(300px,.85fr);
+  gap:18px;
+}
+.admin-detail-card{
+  background:var(--ll-card);
+  border:1px solid var(--ll-border);
+  border-radius:17px;
+  padding:22px;
+  box-shadow:var(--ll-shadow);
+}
+.admin-detail-card.full{grid-column:1/-1}
+.admin-detail-card-head{
+  display:flex;align-items:center;gap:12px;
+  padding-bottom:15px;margin-bottom:18px;
+  border-bottom:1px solid var(--ll-border);
+}
+.admin-detail-card-icon{
+  width:40px;height:40px;min-width:40px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  background:var(--ll-red-soft);
+  color:var(--ll-red);
+  font-size:13px;font-weight:800;
+}
+.admin-detail-card-head h3{margin:0;color:var(--ll-ink);font-size:17px}
+.admin-detail-card-head p{margin:3px 0 0;color:var(--ll-muted);font-size:10px}
+
+.admin-detail-fields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px 26px;
+}
+.admin-detail-field{min-width:0}
+.admin-detail-field.full{grid-column:1/-1}
+.admin-detail-field label{
+  display:block;margin-bottom:6px;
+  color:#897b7c;font-size:10px;font-weight:600;
+}
+.admin-detail-field strong{
+  display:block;color:#332627;font-size:13px;font-weight:700;
+  line-height:1.45;overflow-wrap:anywhere;
+}
+
+.admin-blood-box{
+  display:flex;align-items:center;gap:15px;
+  padding:16px;
+  background:var(--ll-red-soft);
+  border:1px solid #f3d7d9;
+  border-radius:14px;
+}
+.admin-blood-circle{
+  width:72px;height:72px;min-width:72px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--ll-red);color:#fff;
+  font-size:22px;font-weight:800;
+}
+.admin-blood-box span{display:block;color:#8b7d7e;font-size:10px}
+.admin-blood-box strong{display:block;color:var(--ll-red);font-size:20px;margin-top:3px}
+.admin-blood-box small{display:block;color:#8b7d7e;font-size:9px;margin-top:2px}
+
+.admin-account-list{display:grid;gap:0}
+.admin-account-row{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:12px 0;border-bottom:1px solid var(--ll-border);
+}
+.admin-account-row:last-child{border-bottom:0}
+.admin-account-row span{color:#897b7c;font-size:10px}
+.admin-account-row strong{color:#332627;font-size:12px;text-align:right;overflow-wrap:anywhere}
+.admin-account-row .active{color:#27833c}
+
+.admin-detail-footer{
+  display:flex;justify-content:flex-end;gap:10px;margin-top:18px;
+}
+
+/* dark mode */
+body.dark-mode .admin-detail-page{color:#f3e7e7}
+body.dark-mode .admin-detail-title h1,
+body.dark-mode .admin-donor-hero-copy h2,
+body.dark-mode .admin-detail-card-head h3,
+body.dark-mode .admin-detail-field strong,
+body.dark-mode .admin-account-row strong{color:#f5eaea}
+body.dark-mode .admin-detail-title p,
+body.dark-mode .admin-detail-card-head p,
+body.dark-mode .admin-detail-field label,
+body.dark-mode .admin-account-row span{color:#b9aaaa}
+body.dark-mode .admin-donor-hero,
+body.dark-mode .admin-detail-card{background:rgba(31,27,28,.97);border-color:#403536}
+body.dark-mode .admin-detail-card-head,
+body.dark-mode .admin-account-row{border-color:#3d3233}
+body.dark-mode .admin-detail-btn.secondary{background:#2a2223;border-color:#493b3c;color:#eee0e0}
+body.dark-mode .admin-detail-btn.secondary:hover{background:#33292a}
+body.dark-mode .admin-detail-card-icon{background:#382628}
+body.dark-mode .admin-blood-box{background:#2a2223;border-color:#493b3c}
+body.dark-mode .admin-detail-back{color:#ff7379}
+
+@media(max-width:900px){
+  .admin-detail-page{width:min(100% - 32px,760px);padding-top:25px}
+  .admin-detail-title{align-items:flex-start;flex-direction:column}
+  .admin-detail-actions{width:100%}
+  .admin-detail-btn{flex:1}
+  .admin-detail-grid{grid-template-columns:1fr}
+  .admin-detail-card.full{grid-column:auto}
+}
+@media(max-width:560px){
+  .admin-detail-page{width:calc(100% - 24px);padding-top:20px}
+  .admin-detail-title h1{font-size:27px}
+  .admin-donor-hero{align-items:flex-start;flex-wrap:wrap;padding:18px}
+  .admin-donor-status{margin-left:96px}
+  .admin-detail-fields{grid-template-columns:1fr}
+  .admin-detail-field.full{grid-column:auto}
+  .admin-detail-actions,.admin-detail-footer{flex-direction:column}
+  .admin-detail-btn{width:100%;flex:none}
+}
